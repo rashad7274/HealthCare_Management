@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Update Claim Status</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color:#f2f6f8;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+
+header{
+    background-color:#d6ecff;
+    padding:20px;
+}
+
+header h1{
+    margin:0;
+}
+
+header h3{
+    margin:5px 0;
+    color:#555;
+}
+
+.form-container{
+    width:40%;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+    text-align:left;
+}
+
+label{
+    font-weight:bold;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    background-color:#4CAF50;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:5px;
+    cursor:pointer;
+    width:100%;
+    font-size:16px;
+}
+
+button:hover{
+    background-color:#45a049;
+}
+
+footer{
+    background:#e8eef2;
+    padding:15px;
+    margin-top:40px;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Smart Healthcare Management System</h1>
+<h3>Update Claim Status</h3>
+</header>
+
+<div class="form-container">
+
+<h2>Update Insurance Claim</h2>
+
+<form>
+
+<label>Claim ID</label>
+<input type="text" placeholder="Enter Claim ID">
+
+<label>Patient ID</label>
+<input type="text" placeholder="Enter Patient ID">
+
+<label>Claim Status</label>
+<select>
+<option>Pending</option>
+<option>Approved</option>
+<option>Rejected</option>
+<option>Settled</option>
+</select>
+
+<label>Settlement Amount</label>
+<input type="text" placeholder="Enter amount if approved">
+
+<label>Remarks</label>
+<textarea rows="4" placeholder="Additional comments"></textarea>
+
+<button type="submit">Update Claim</button>
+
+</form>
+
+</div>
+
+<footer>
+Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>
