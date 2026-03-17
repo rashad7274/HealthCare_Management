@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Manager Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+        header {
+            background-color: #a9c0d3;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .card {
+            background: #eaeaea;
+            padding: 30px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+        }
+        .card a {
+            display: block;
+            font-weight: bold;
+            color: blue;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+        .notification {
+            background: #eaeaea;
+            margin: 30px auto;
+            padding: 20px;
+            width: 60%;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #d0d6db;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <p>Appointment Manager Dashboard</p>
+    <button class="logout">Logout</button>
+</header>
+
+<div class="container">
+    <h2>Welcome, Appointment Manager!</h2>
+    <p>Here you can manage appointments, schedules, and doctor availability.</p>
+
+    <div class="card-container">
+        
+        <div class="card">
+            <a href="#">View Appointments</a>
+            <p>See all patient appointment bookings.</p>
+        </div>
+
+        <div class="card">
+            <a href="#">Manage Schedule</a>
+            <p>Update and organize appointment timings.</p>
+        </div>
+
+        <div class="card">
+            <a href="#">Doctor Availability</a>
+            <p>Set available time slots for doctors.</p>
+        </div>
+    </div>
+
+    <div class="notification">
+        <h3>Appointment Notifications</h3>
+        <ul>
+            <li>5 new appointment requests.</li>
+            <li>2 appointments rescheduled.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>
