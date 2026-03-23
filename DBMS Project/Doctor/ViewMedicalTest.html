@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>View Medical Records</title>
+<title>View Medical Tests</title>
 
 <style>
 
@@ -14,7 +14,7 @@ body{
     text-align:center;
 }
 
-
+/* Header */
 
 header{
     background-color:#d6ecff;
@@ -30,10 +30,10 @@ header h3{
     color:#555;
 }
 
+/* Container */
 
-
-.records-container{
-    width:70%;
+.test-container{
+    width:75%;
     margin:40px auto;
     background:white;
     padding:25px;
@@ -41,7 +41,7 @@ header h3{
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
 }
 
-
+/* Table */
 
 table{
     width:100%;
@@ -62,7 +62,19 @@ tr:hover{
     background-color:#f5f5f5;
 }
 
+/* Status Colors */
 
+.completed{
+    color:green;
+    font-weight:bold;
+}
+
+.pending{
+    color:orange;
+    font-weight:bold;
+}
+
+/* Footer */
 
 footer{
     background:#e8eef2;
@@ -79,41 +91,53 @@ footer{
 
 <header>
 <h1>Smart Healthcare Management System</h1>
-<h3>View Medical Records</h3>
+<h3>View Medical Tests</h3>
 </header>
 
-<div class="records-container">
+<div class="test-container">
 
-<h2>Your Medical Records</h2>
+<h2>Patient Test Results</h2>
 
 <table>
 
 <tr>
+<th>Patient Name</th>
+<th>Test Type</th>
 <th>Date</th>
-<th>Doctor</th>
-<th>Diagnosis</th>
-<th>Prescription</th>
+<th>Result</th>
+<th>Status</th>
 </tr>
 
 <tr>
-<td>10 March 2026</td>
-<td>Dr. Ahmed</td>
-<td>Common Cold</td>
-<td>Paracetamol, Rest</td>
+<td>John Smith</td>
+<td>Blood Test</td>
+<td>20 March 2026</td>
+<td>Normal</td>
+<td class="completed">Completed</td>
 </tr>
 
 <tr>
-<td>15 February 2026</td>
-<td>Dr. Rahman</td>
-<td>Skin Allergy</td>
-<td>Antihistamine Cream</td>
+<td>Sarah Ahmed</td>
+<td>X-Ray</td>
+<td>21 March 2026</td>
+<td>Minor Issue</td>
+<td class="completed">Completed</td>
 </tr>
 
 <tr>
-<td>02 January 2026</td>
-<td>Dr. Khan</td>
-<td>Fever</td>
-<td>Paracetamol, Hydration</td>
+<td>Michael Lee</td>
+<td>MRI Scan</td>
+<td>22 March 2026</td>
+<td>---</td>
+<td class="pending">Pending</td>
+</tr>
+
+<tr>
+<td>Fatima Khan</td>
+<td>CT Scan</td>
+<td>23 March 2026</td>
+<td>Normal</td>
+<td class="completed">Completed</td>
 </tr>
 
 </table>
