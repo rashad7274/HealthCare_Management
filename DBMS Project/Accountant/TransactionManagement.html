@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Transaction Management</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color:#f2f6f8;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+
+header{
+    background-color:#d6ecff;
+    padding:20px;
+    position:relative;
+}
+
+header h1{
+    margin:0;
+}
+
+header h3{
+    margin:5px 0;
+    color:#555;
+}
+
+.logout{
+    position:absolute;
+    right:20px;
+    top:20px;
+    padding:8px 15px;
+    border:none;
+    background-color:#ff6b6b;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.table-container{
+    width:80%;
+    margin:40px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+th{
+    background-color:#eef7ff;
+}
+
+tr:hover{
+    background-color:#f5f5f5;
+}
+
+.paid{
+    color:green;
+    font-weight:bold;
+}
+
+.pending{
+    color:red;
+    font-weight:bold;
+}
+
+footer{
+    background:#e8eef2;
+    padding:15px;
+    margin-top:40px;
+    font-size:14px;
+    color:#444;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Smart Healthcare Management System</h1>
+<h3>Transaction Management</h3>
+<button class="logout">Logout</button>
+</header>
+
+<!-- Transaction Table -->
+<div class="table-container">
+
+<h3>All Transactions</h3>
+
+<table>
+
+<tr>
+<th>Transaction ID</th>
+<th>Patient ID</th>
+<th>Service</th>
+<th>Date</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>T001</td>
+<td>P001</td>
+<td>Blood Test</td>
+<td>24 March 2026</td>
+<td>$50</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>T002</td>
+<td>P002</td>
+<td>X-Ray</td>
+<td>23 March 2026</td>
+<td>$120</td>
+<td class="pending">Pending</td>
+</tr>
+
+<tr>
+<td>T003</td>
+<td>P003</td>
+<td>MRI Scan</td>
+<td>22 March 2026</td>
+<td>$500</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>T004</td>
+<td>P004</td>
+<td>Consultation</td>
+<td>21 March 2026</td>
+<td>$80</td>
+<td class="pending">Pending</td>
+</tr>
+
+</table>
+
+</div>
+
+<footer>
+Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>
