@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Processing</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color:#f2f6f8;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+
+header{
+    background-color:#d6ecff;
+    padding:20px;
+    position:relative;
+}
+
+header h1{
+    margin:0;
+}
+
+header h3{
+    margin:5px 0;
+    color:#555;
+}
+
+.logout{
+    position:absolute;
+    right:20px;
+    top:20px;
+    padding:8px 15px;
+    border:none;
+    background-color:#ff6b6b;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.form-container{
+    width:400px;
+    margin:40px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+    text-align:left;
+}
+
+label{
+    font-weight:bold;
+}
+
+input, select{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    background-color:#4da6ff;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background-color:#3399ff;
+}
+
+.table-container{
+    width:80%;
+    margin:40px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+th{
+    background-color:#eef7ff;
+}
+
+tr:hover{
+    background-color:#f5f5f5;
+}
+
+.paid{
+    color:green;
+    font-weight:bold;
+}
+
+.pending{
+    color:red;
+    font-weight:bold;
+}
+
+footer{
+    background:#e8eef2;
+    padding:15px;
+    margin-top:40px;
+    font-size:14px;
+    color:#444;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Smart Healthcare Management System</h1>
+<h3>Payment Processing</h3>
+<button class="logout">Logout</button>
+</header>
+
+<!-- Payment Form -->
+<div class="form-container">
+
+<h3>Process Payment</h3>
+
+<form>
+
+<label>Patient ID</label>
+<input type="text" placeholder="Enter patient ID">
+
+<label>Amount</label>
+<input type="number" placeholder="Enter amount">
+
+<label>Payment Method</label>
+<select>
+<option>Cash</option>
+<option>Card</option>
+<option>Mobile Banking</option>
+</select>
+
+<label>Date</label>
+<input type="date">
+
+<button type="submit">Submit Payment</button>
+
+</form>
+
+</div>
+
+<!-- Payment Records -->
+<div class="table-container">
+
+<h3>Payment Records</h3>
+
+<table>
+
+<tr>
+<th>Patient ID</th>
+<th>Amount</th>
+<th>Method</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>P001</td>
+<td>$50</td>
+<td>Cash</td>
+<td>24 March 2026</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>P002</td>
+<td>$120</td>
+<td>Card</td>
+<td>23 March 2026</td>
+<td class="pending">Pending</td>
+</tr>
+
+<tr>
+<td>P003</td>
+<td>$500</td>
+<td>Mobile Banking</td>
+<td>22 March 2026</td>
+<td class="paid">Paid</td>
+</tr>
+
+</table>
+
+</div>
+
+<footer>
+Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>
