@@ -38,19 +38,32 @@ header h3{
     text-align:left;
 }
 
+/* NEW: small improvement */
+.login-container h3{
+    text-align:center;
+    margin-bottom:20px;
+}
+
 label{
     font-weight:bold;
 }
 
 input, select{
     width:100%;
-    padding:8px;
+    padding:10px;
     margin-top:5px;
     margin-bottom:15px;
     border-radius:5px;
     border:1px solid #ccc;
 }
 
+/* NEW: focus effect */
+input:focus, select:focus{
+    border-color:#4da6ff;
+    outline:none;
+}
+
+/* Button */
 button{
     width:100%;
     padding:10px;
@@ -59,10 +72,27 @@ button{
     color:white;
     border-radius:5px;
     cursor:pointer;
+    font-size:16px;
 }
 
 button:hover{
     background-color:#3399ff;
+}
+
+/* NEW: extra links */
+.extra-links{
+    text-align:center;
+    margin-top:10px;
+    font-size:14px;
+}
+
+.extra-links a{
+    text-decoration:none;
+    color:#4da6ff;
+}
+
+.extra-links a:hover{
+    text-decoration:underline;
 }
 
 footer{
@@ -83,21 +113,21 @@ footer{
 <h3>System Access (Login)</h3>
 </header>
 
-<!-- Login Form -->
 <div class="login-container">
 
 <h3>User Login</h3>
 
-<form>
+<form onsubmit="redirectUser(event)">
 
 <label>Username</label>
-<input type="text" placeholder="Enter username">
+<input type="text" placeholder="Enter username" required>
 
 <label>Password</label>
-<input type="password" placeholder="Enter password">
+<input type="password" placeholder="Enter password" required>
 
 <label>Select Role</label>
-<select>
+<select required>
+<option value="">-- Select Role --</option>
 <option>Accountant</option>
 <option>Doctor</option>
 <option>Patient</option>
@@ -110,11 +140,45 @@ footer{
 
 </form>
 
+<div class="extra-links">
+<p><a href="#">Forgot Password?</a></p>
+</div>
+
 </div>
 
 <footer>
 Smart Healthcare Management System © 2026
 </footer>
+
+<script>
+function redirectUser(event){
+    event.preventDefault();
+
+    let role = document.querySelector("select").value;
+
+    if(role === "Doctor"){
+    window.location.href = "Doctor/Doctor.html";
+    }
+    else if(role === "Patient"){
+        window.location.href = "Patient/Patient.html";
+    }
+    else if(role === "Investigator"){
+        window.location.href = "Investigator/Investigator.html";
+    }
+    else if(role === "Insurance"){
+        window.location.href = "Insurance/Insurance.html";
+    }
+    else if(role === "Accountant"){
+        window.location.href = "Accountant/Accountant.html";
+    }
+    else if(role === "Appointment Manager"){
+        window.location.href = "Appointment/Appointment.html";
+    }
+    else{
+        alert("Please select a role");
+    }
+}
+</script>
 
 </body>
 </html>
