@@ -9,68 +9,123 @@
             margin: 0;
             background-color: #f4f6f8;
         }
+        
         header {
-            background-color: #a9c0d3;
+            background-color: #d6ecff;
             padding: 20px;
             text-align: center;
             position: relative;
         }
-        header h1 {
-            margin: 0;
-        }
-        header p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
+        
+        header h1 { margin: 0; }
+        header p { margin: 5px 0; font-weight: bold; }
+
         .logout {
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 8px 16px;
             background-color: #ff6b6b;
             color: white;
             border: none;
-            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
         }
+        
+        .logout:hover { background-color: #ff4d4d; }
+
         .container {
             text-align: center;
-            margin-top: 40px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
+
         .card-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
+            gap: 25px;
+            margin-bottom: 40px; /* Space between cards and notification */
         }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            flex: 1; /* Makes cards equal width */
+            max-width: 300px;
+        }
+
         .card {
-            background: #eaeaea;
+            background: #ffffff;
             padding: 30px;
-            width: 250px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            cursor: pointer;
+            height: 100%;
+            box-sizing: border-box;
         }
-        .card a {
-            display: block;
-            font-weight: bold;
-            color: blue;
-            margin-bottom: 10px;
-            text-decoration: underline;
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: #f0f7ff;
+            border: 1px solid #4da6ff;
         }
+
+        .card h3 {
+            margin-top: 0;
+            color: #0056b3;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Notification Section placed under buttons */
         .notification {
-            background: #eaeaea;
-            margin: 30px auto;
-            padding: 20px;
-            width: 60%;
-            border-radius: 10px;
+            background: #ffffff;
+            margin: 0 auto;
+            padding: 25px;
+            width: 100%;
+            max-width: 950px;
+            border-radius: 12px;
             text-align: left;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #4da6ff; /* Highlighted edge */
         }
+
+        .notification h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .notification ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+        .notification li {
+            padding: 8px 0;
+            color: #444;
+            font-size: 15px;
+        }
+
         footer {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             background: #d0d6db;
-            margin-top: 50px;
+            margin-top: 60px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -79,36 +134,42 @@
 <header>
     <h1>Smart Healthcare Management System</h1>
     <p>Appointment Manager Dashboard</p>
-<button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
 <div class="container">
     <h2>Welcome, Appointment Manager!</h2>
-    <p>Here you can manage appointments, schedules, and doctor availability.</p>
+    <p style="margin-bottom: 40px;">Select a module below to manage clinical operations.</p>
 
     <div class="card-container">
-        
-        <div class="card">
-            <a href="ViewAppoinment.html">View Appointments</a>
-            <p>See all patient appointment bookings.</p>
-        </div>
+        <a href="ViewAppoinment.html" class="card-link">
+            <div class="card">
+                <h3>View Appointments</h3>
+                <p>See all patient appointment bookings and history.</p>
+            </div>
+        </a>
 
-        <div class="card">
-            <a href="ManageSchedule.html">Manage Schedule</a>
-            <p>Update and organize appointment timings.</p>
-        </div>
+        <a href="ManageSchedule.html" class="card-link">
+            <div class="card">
+                <h3>Manage Schedule</h3>
+                <p>Update and organize clinical appointment timings.</p>
+            </div>
+        </a>
 
-        <div class="card">
-            <a href="ViewAppoinment.html">Doctor Availability</a>
-            <p>Set available time slots for doctors.</p>
-        </div>
+        <a href="AppointmentAdmin.html" class="card-link">
+            <div class="card">
+                <h3>Appointment Portal</h3>
+                <p>Administration tasks and patient status updates.</p>
+            </div>
+        </a>
     </div>
 
     <div class="notification">
-        <h3>Appointment Notifications</h3>
+        <h3>System Notifications</h3>
         <ul>
-            <li>5 new appointment requests.</li>
-            <li>2 appointments rescheduled.</li>
+            <li><strong>New:</strong> 5 appointment requests pending approval.</li>
+            <li><strong>Update:</strong> Dr. Rahman's schedule updated for next Monday.</li>
+            <li><strong>Alert:</strong> 2 patient cancellations recorded today.</li>
         </ul>
     </div>
 </div>

@@ -5,147 +5,120 @@
 <title>View Medical Tests</title>
 
 <style>
+    body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
+    header{ background-color:#d6ecff; padding:20px; }
+    header h1{ margin:0; }
+    header h3{ margin:5px 0; color:#555; }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
+    .test-container{
+        width:90%; /* Increased width for more columns */
+        margin:40px auto;
+        background:white;
+        padding:25px;
+        border-radius:10px;
+        box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+    }
 
-/* Header */
+    /* Search Bar Styling */
+    .search-box {
+        margin-bottom: 25px;
+        background: #eef7ff;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+    }
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-}
+    .search-box input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 250px;
+    }
 
-header h1{
-    margin:0;
-}
+    .search-box button {
+        padding: 8px 20px;
+        background-color: #4da6ff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
+    .search-box button:hover { background-color: #3399ff; }
 
-/* Container */
+    table{ width:100%; border-collapse:collapse; margin-top:20px; font-size: 14px;}
+    th, td{ border:1px solid #ddd; padding:12px 8px; text-align: center; }
+    th{ background-color:#eef7ff; }
+    tr:hover{ background-color:#f5f5f5; }
 
-.test-container{
-    width:75%;
-    margin:40px auto;
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-}
+    .completed{ color:green; font-weight:bold; }
+    .pending{ color:orange; font-weight:bold; }
+    
+    .file-link { color: #4da6ff; text-decoration: none; font-weight: bold; }
 
-/* Table */
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-th, td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-
-th{
-    background-color:#eef7ff;
-}
-
-tr:hover{
-    background-color:#f5f5f5;
-}
-
-/* Status Colors */
-
-.completed{
-    color:green;
-    font-weight:bold;
-}
-
-.pending{
-    color:orange;
-    font-weight:bold;
-}
-
-/* Footer */
-
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:40px;
-    font-size:14px;
-    color:#444;
-}
-
+    footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; color:#444; }
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>View Medical Tests</h3>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Medical Investigation Department</h3>
 </header>
 
 <div class="test-container">
+    <h2>Patient Test Records</h2>
 
-<h2>Patient Test Results</h2>
+    <div class="search-box">
+        <form action="search_test.php" method="GET" style="display:flex; gap:10px;">
+            <label for="search_id">Search by Test ID:</label>
+            <input type="text" name="search_test_id" id="search_id" placeholder="Enter Test ID (e.g. 5001)">
+            <button type="submit">Filter Results</button>
+        </form>
+    </div>
 
-<table>
-
-<tr>
-<th>Patient Name</th>
-<th>Test Type</th>
-<th>Date</th>
-<th>Result</th>
-<th>Status</th>
-</tr>
-
-<tr>
-<td>John Smith</td>
-<td>Blood Test</td>
-<td>20 March 2026</td>
-<td>Normal</td>
-<td class="completed">Completed</td>
-</tr>
-
-<tr>
-<td>Sarah Ahmed</td>
-<td>X-Ray</td>
-<td>21 March 2026</td>
-<td>Minor Issue</td>
-<td class="completed">Completed</td>
-</tr>
-
-<tr>
-<td>Michael Lee</td>
-<td>MRI Scan</td>
-<td>22 March 2026</td>
-<td>---</td>
-<td class="pending">Pending</td>
-</tr>
-
-<tr>
-<td>Fatima Khan</td>
-<td>CT Scan</td>
-<td>23 March 2026</td>
-<td>Normal</td>
-<td class="completed">Completed</td>
-</tr>
-
-</table>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Patient ID</th>
+                <th>Doctor ID</th>
+                <th>Test Type</th>
+                <th>Result Details</th>
+                <th>Report File</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5001</td>
+                <td>P-101</td>
+                <td>D-202</td>
+                <td>Blood Test</td>
+                <td>Hemoglobin levels normal</td>
+                <td><a href="reports/5001.pdf" class="file-link">View PDF</a></td>
+                <td><span class="completed">Completed</span></td>
+            </tr>
+            <tr>
+                <td>5002</td>
+                <td>P-105</td>
+                <td>D-205</td>
+                <td>MRI Scan</td>
+                <td>Awaiting Analysis</td>
+                <td>---</td>
+                <td><span class="pending">Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>

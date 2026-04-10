@@ -2,121 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Update Claim Status</title>
+<title>Update Insurance Claims</title>
 
 <style>
+    body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
+    
+    header{ background-color:#d6ecff; padding:20px; position: relative; }
+    header h1{ margin:0; }
+    header h3{ margin:5px 0; color:#555; }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
+    /* Note: .logout CSS removed to clean up code */
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-}
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
 
-header h1{
-    margin:0;
-}
+    /* Search Section */
+    .search-section {
+        width: 85%;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .search-section input { padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 5px; }
+    .search-section button { width: auto; padding: 8px 20px; background-color: #4da6ff; color: white; border: none; border-radius: 5px; cursor: pointer;}
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
+    /* Form and Table Flex Layout */
+    .content-layout {
+        display: flex;
+        width: 90%;
+        gap: 20px;
+        justify-content: center;
+    }
 
-.form-container{
-    width:40%;
-    margin:40px auto;
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-    text-align:left;
-}
+    /* Update Form */
+    .form-container{
+        width: 30%;
+        background:white;
+        padding:25px;
+        border-radius:10px;
+        box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+        text-align:left;
+        height: fit-content;
+    }
 
-label{
-    font-weight:bold;
-}
+    label{ font-weight:bold; font-size: 14px; }
+    input, select, textarea{
+        width:100%; padding:10px; margin-top:5px; margin-bottom:15px;
+        border:1px solid #ccc; border-radius:5px; box-sizing: border-box;
+    }
 
-input, select, textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
+    .btn-update { background-color:#4CAF50; color:white; border:none; padding:12px; border-radius:5px; cursor:pointer; width:100%; font-size:16px; font-weight: bold; }
+    .btn-update:hover{ background-color:#45a049; }
 
-button{
-    background-color:#4CAF50;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:5px;
-    cursor:pointer;
-    width:100%;
-    font-size:16px;
-}
+    /* Table View */
+    .table-container {
+        width: 65%;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
 
-button:hover{
-    background-color:#45a049;
-}
+    table { width:100%; border-collapse:collapse; font-size: 13px; }
+    th, td { border:1px solid #ddd; padding:10px; text-align: center; }
+    th { background-color:#eef7ff; }
+    
+    .status-badge { font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+    .Pending { color: orange; }
+    .Approved { color: green; }
+    .Rejected { color: red; }
 
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:40px;
-    font-size:14px;
-}
-
+    footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; }
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Update Claim Status</h3>
-</header>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Insurance Department - Claims Management</h3>
+    </header>
 
-<div class="form-container">
+<div class="main-container">
+    
+    <div class="search-section">
+        <form action="" method="GET" style="display:flex; gap:10px;">
+            <input type="text" name="search_id" placeholder="Search by Claim ID...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
-<h2>Update Insurance Claim</h2>
+    <div class="content-layout">
+        
+        <div class="form-container">
+            <h2>Update Claim</h2>
+            <form action="update_logic.php" method="POST">
+                <label>Claim ID (To Update)</label>
+                <input type="text" name="claim_id" placeholder="e.g. 7001" required>
 
-<form>
+                <label>Update Status</label>
+                <select name="new_status">
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Settled">Settled</option>
+                </select>
 
-<label>Claim ID</label>
-<input type="text" placeholder="Enter Claim ID">
+                <label>Settlement Amount</label>
+                <input type="number" step="0.01" name="settlement_amount" placeholder="Final approved amount">
 
-<label>Patient ID</label>
-<input type="text" placeholder="Enter Patient ID">
+                <label>Update Description / Remarks</label>
+                <textarea name="remarks" rows="3" placeholder="Notes for the patient..."></textarea>
 
-<label>Claim Status</label>
-<select>
-<option>Pending</option>
-<option>Approved</option>
-<option>Rejected</option>
-<option>Settled</option>
-</select>
+                <button type="submit" name="btn_update_claim" class="btn-update">Update Record</button>
+            </form>
+        </div>
 
-<label>Settlement Amount</label>
-<input type="text" placeholder="Enter amount if approved">
+        <div class="table-container">
+            <h2>All Insurance Claims</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Patient ID</th>
+                        <th>Claim Amount</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7001</td>
+                        <td>P-101</td>
+                        <td>$2,000.00</td>
+                        <td>Initial filing</td>
+                        <td><span class="status-badge Pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>7002</td>
+                        <td>P-105</td>
+                        <td>$350.00</td>
+                        <td>Policy check verified</td>
+                        <td><span class="status-badge Approved">Approved</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<label>Remarks</label>
-<textarea rows="4" placeholder="Additional comments"></textarea>
-
-<button type="submit">Update Claim</button>
-
-</form>
-
+    </div>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>

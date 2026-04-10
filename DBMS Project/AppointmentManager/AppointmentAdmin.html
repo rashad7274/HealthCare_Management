@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Management Board</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; color: #333; margin: 0; padding: 0; }
+        
+        header { background-color: #4A90E2; padding: 20px; color: white; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header h1 { margin: 0; font-size: 24px; }
+
+        .main-content { width: 95%; margin: 30px auto; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Search Filter Section */
+        .filter-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .filter-card input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 300px; }
+        .btn-search { background: #4A90E2; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+        .content-layout { display: flex; gap: 25px; }
+
+        /* Update Node (Form) */
+        .update-container {
+            width: 30%;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            text-align: left;
+        }
+        .update-container h3 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f4f6f8; padding-bottom: 10px; }
+        label { font-weight: bold; font-size: 13px; display: block; margin-top: 15px; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        
+        .btn-update { 
+            background-color: #27ae60; color: white; border: none; padding: 12px; 
+            border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-update:hover { background-color: #219150; }
+
+        /* Table Section */
+        .table-container { width: 70%; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        th { background-color: #f8f9fa; color: #7f8c8d; text-transform: uppercase; font-size: 12px; }
+        tr:hover { background-color: #fcfcfc; }
+
+        /* Status Badges */
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .pending { background: #fff3cd; color: #856404; }
+        .confirmed { background: #d4edda; color: #155724; }
+        .cancelled { background: #f8d7da; color: #721c24; }
+
+        footer { text-align: center; padding: 20px; background: #d0d6db; margin-top: 50px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <p>Appointment Administration Portal</p>
+</header>
+
+<div class="main-content">
+    
+    <div class="filter-card">
+        <form action="" method="GET" style="display: flex; gap: 10px;">
+            <input type="text" name="search_id" placeholder="Search by Appointment ID or Patient Name...">
+            <button type="submit" class="btn-search">Filter Appointments</button>
+        </form>
+    </div>
+
+    <div class="content-layout">
+        
+        <div class="update-container">
+            <h3>Update Appointment</h3>
+            <form action="update_appointment.php" method="POST">
+                <label>Appointment ID (Required)</label>
+                <input type="text" name="app_id" placeholder="Enter ID to modify" required>
+
+                <label>Change Status</label>
+                <select name="new_status">
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+
+                <label>Reason / Modification Notes</label>
+                <textarea name="reason" rows="3" placeholder="Update reason for visit..."></textarea>
+
+                <label>Reschedule Date</label>
+                <input type="date" name="new_date">
+
+                <label>New Time Slot</label>
+                <input type="time" name="new_time">
+
+                <button type="submit" name="btn_update" class="btn-update">Update Appointment</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Appt ID</th>
+                        <th>Doc ID</th>
+                        <th>Doctor Name</th>
+                        <th>Patient Name</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#8001</strong></td>
+                        <td>101</td>
+                        <td>Dr. Smith</td>
+                        <td>John Doe</td>
+                        <td>Chest Pain</td>
+                        <td>2026-04-15</td>
+                        <td>10:30 AM</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>#8002</strong></td>
+                        <td>102</td>
+                        <td>Dr. Rahman</td>
+                        <td>Sarah Khan</td>
+                        <td>Neurology Follow-up</td>
+                        <td>2026-04-15</td>
+                        <td>04:15 PM</td>
+                        <td><span class="status-badge confirmed">Confirmed</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    Smart Healthcare Management System &copy; 2026 | Group Project Appointment Portal
+</footer>
+
+</body>
+</html>

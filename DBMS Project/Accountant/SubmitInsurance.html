@@ -5,227 +5,151 @@
 <title>Submit Insurance</title>
 
 <style>
+    body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
+    header{ background-color:#d6ecff; padding:20px; position:relative; }
+    header h1{ margin:0; }
+    header h3{ margin:5px 0; color:#555; }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
+.logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px;       
+    width: auto;      
+    padding: 8px 20px; 
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
 }
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-    position:relative;
+.logout:hover {
+    background-color: #cc0000;
 }
 
-header h1{
-    margin:0;
-}
+    .form-container{
+        width:400px;
+        margin:40px auto;
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+        text-align:left;
+    }
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
+    label{ font-weight:bold; }
+    
+    /* Added textarea to the common styling */
+    input, select, textarea{
+        width:100%;
+        padding:8px;
+        margin-top:5px;
+        margin-bottom:15px;
+        border-radius:5px;
+        border:1px solid #ccc;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
 
-.logout{
-    position:absolute;
-    right:20px;
-    top:20px;
-    width:auto;
-    padding:8px 15px;
-    border:none;
-    background-color:#ff6b6b;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-}
+    /* Fixed height for description box */
+    textarea {
+        height: 80px;
+        resize: vertical; /* Allows user to expand it downwards only */
+    }
 
-.form-container{
-    width:400px;
-    margin:40px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-    text-align:left;
-}
+    button{ width:100%; padding:10px; border:none; background-color:#4da6ff; color:white; border-radius:5px; cursor:pointer; font-weight: bold; }
+    button:hover{ background-color:#3399ff; }
 
-label{
-    font-weight:bold;
-}
+    .table-container{
+        width:90%;
+        margin:40px auto;
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+    }
 
-input, select{
-    width:100%;
-    padding:8px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border-radius:5px;
-    border:1px solid #ccc;
-}
+    table{ width:100%; border-collapse:collapse; font-size: 14px;}
+    th, td{ border:1px solid #ddd; padding:12px; text-align: center; }
+    th{ background-color:#eef7ff; }
 
-textarea{
-    width:100%;
-    padding:8px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border-radius:5px;
-    border:1px solid #ccc;
-    resize:none;
-}
+    .approved{ color:green; font-weight:bold; }
+    .pending{ color:orange; font-weight:bold; }
+    .rejected{ color:red; font-weight:bold; }
 
-button{
-    width:100%;
-    padding:10px;
-    border:none;
-    background-color:#4da6ff;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-button:hover{
-    background-color:#3399ff;
-}
-
-.table-container{
-    width:80%;
-    margin:40px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th, td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-
-th{
-    background-color:#eef7ff;
-}
-
-tr:hover{
-    background-color:#f5f5f5;
-}
-
-.approved{
-    color:green;
-    font-weight:bold;
-}
-
-.pending{
-    color:orange;
-    font-weight:bold;
-}
-
-.rejected{
-    color:red;
-    font-weight:bold;
-}
-
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:40px;
-    font-size:14px;
-    color:#444;
-}
-
+    footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; color:#444; }
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Submit Insurance</h3>
-<button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Submit Insurance</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
-<!-- Insurance Form -->
 <div class="form-container">
+    <h3>New Insurance Claim</h3>
 
-<h3>Submit Insurance Claim</h3>
+    <form action="process_claim.php" method="POST">
 
-<form>
+        <label for="invoice_id">Invoice ID</label>
+        <input type="text" name="invoice_id" id="invoice_id" placeholder="Enter associated Invoice ID" required>
 
-<label>Patient ID</label>
-<input type="text" placeholder="Enter patient ID">
+        <label for="patient_id">Patient ID</label>
+        <input type="text" name="patient_id" id="patient_id" placeholder="Enter patient ID" required>
 
-<label>Insurance Provider</label>
-<input type="text" placeholder="Enter provider name">
+        <label for="claim_amount">Claim Amount</label>
+        <input type="number" step="0.01" name="amount" id="claim_amount" placeholder="Enter amount to claim" required>
 
-<label>Policy Number</label>
-<input type="text" placeholder="Enter policy number">
+        <label for="status">Initial Status</label>
+        <select name="status" id="status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
 
-<label>Claim Amount</label>
-<input type="number" placeholder="Enter claim amount">
+        <label for="description">Claim Description / Notes</label>
+        <textarea name="description" id="description" placeholder="Provide details or reasons for this claim..."></textarea>
 
-<label>Description</label>
-<textarea placeholder="Enter claim details"></textarea>
+        <button type="submit" name="submit_claim">Submit to Database</button>
 
-<label>Date</label>
-<input type="date">
-
-<button type="submit">Submit Claim</button>
-
-</form>
-
+    </form>
 </div>
 
-<!-- Insurance Records -->
 <div class="table-container">
-
-<h3>Insurance Claims</h3>
-
-<table>
-
-<tr>
-<th>Claim ID</th>
-<th>Patient ID</th>
-<th>Provider</th>
-<th>Amount</th>
-<th>Status</th>
-</tr>
-
-<tr>
-<td>C001</td>
-<td>P001</td>
-<td>ABC Insurance</td>
-<td>$200</td>
-<td class="approved">Approved</td>
-</tr>
-
-<tr>
-<td>C002</td>
-<td>P002</td>
-<td>XYZ Insurance</td>
-<td>$150</td>
-<td class="pending">Pending</td>
-</tr>
-
-<tr>
-<td>C003</td>
-<td>P003</td>
-<td>HealthCare Ltd.</td>
-<td>$500</td>
-<td class="rejected">Rejected</td>
-</tr>
-
-</table>
-
+    <h3>Insurance Claims History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Invoice ID</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Amount</th>
+                <th>Description</th> <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>7001</td>
+                <td>905</td>
+                <td>P-101</td>
+                <td>John Smith</td>
+                <td>$200.00</td>
+                <td>Post-surgery medication coverage</td>
+                <td class="approved">Approved</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>

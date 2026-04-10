@@ -1,58 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Manage Schedule</title>
     <style>
-        body { font-family: Arial; background: #f4f6f8; }
+        body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 0; text-align: center; }
+        
+        /* Restored Header Background */
+        header {
+            background-color: #d6ecff;
+            padding: 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        header h1 { margin: 0; }
+        header h3 { margin: 5px 0; color: #555; }
+
+   .logout {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%); /* Keeps it centered vertically */
+            
+            /* Size Controls */
+            width: auto;               /* Prevents stretching */
+            padding: 8px 16px;         /* Compact spacing */
+            font-size: 14px;           /* Standard button text size */
+            
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1.2;          /* Prevents extra height from line spacing */
+        }
+
+     
+
         .form-box {
             width: 400px;
             margin: auto;
-            background: #eaeaea;
-            padding: 20px;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: left; /* Keeps labels aligned left */
         }
-        input, select, button {
+
+        label { font-weight: bold; display: block; margin-top: 10px; color: #333; }
+
+        input, button {
             width: 100%;
-            padding: 8px;
-            margin: 10px 0;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
+
         button {
-            background: #a9c0d3;
+            background: #4da6ff;
+            color: white;
             border: none;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s;
         }
+
+        button:hover {
+            background: #3399ff;
+        }
+
         footer {
             text-align: center;
-            padding: 15px;
-            background: #d0d6db;
+            padding: 20px;
+            background: #e8eef2;
             margin-top: 50px;
+            font-size: 14px;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
-<h2 style="text-align:center;">Manage Schedule</h2>
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Manage Appointment Schedule</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+</header>
 
 <div class="form-box">
-    <label>Patient Name</label>
-    <input type="text">
+    <form action="process_schedule.php" method="POST">
+        
+        <label for="p_name">Patient Name</label>
+        <input type="text" id="p_name" name="patient_name" placeholder="Enter full name" required>
 
-    <label>Select Doctor</label>
-    <select>
-        <option>Dr. Smith</option>
-        <option>Dr. Rahman</option>
-    </select>
+        <label for="d_id">Doctor ID</label>
+        <input type="text" id="d_id" name="doctor_id" placeholder="Enter Doctor ID (e.g. 101)" required>
 
-    <label>Date</label>
-    <input type="date">
+        <label for="app_date">Appointment Date</label>
+        <input type="date" id="app_date" name="appointment_date" required>
 
-    <label>Time</label>
-    <input type="time">
+        <label for="app_time">Appointment Time</label>
+        <input type="time" id="app_time" name="appointment_time" required>
 
-    <button>Update Schedule</button>
+        <button type="submit" name="update_schedule">Update Schedule</button>
+    </form>
 </div>
+
 <footer>
-    Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026 | Project Management Portal
 </footer>
+
 </body>
 </html>

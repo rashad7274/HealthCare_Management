@@ -56,13 +56,15 @@ label{
     font-weight:bold;
 }
 
-input{
+/* UPDATED: Added 'select' here so the dropdown matches the inputs exactly */
+input, select {
     width:100%;
     padding:8px;
     margin-top:5px;
     margin-bottom:15px;
     border-radius:5px;
     border:1px solid #ccc;
+    box-sizing: border-box; /* Prevents width from overflowing */
 }
 
 button{
@@ -73,6 +75,7 @@ button{
     color:white;
     border-radius:5px;
     cursor:pointer;
+    margin-top: 10px;
 }
 
 button:hover{
@@ -93,38 +96,41 @@ footer{
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Invoice Generation</h3>
-<button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Invoice Generation</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
-<!-- Invoice Form -->
 <div class="form-container">
+    <h3>Generate New Invoice</h3>
 
-<h3>Generate New Invoice</h3>
+    <form action="process_invoice.php" method="POST">
 
-<form>
+        <label for="patient_id">Patient ID</label>
+        <input type="text" name="patient_id" id="patient_id" placeholder="Enter patient ID" required>
 
-<label>Patient Name</label>
-<input type="text" placeholder="Enter patient name">
+        <label for="service_desc">Service Description</label>
+        <input type="text" name="service_desc" id="service_desc" placeholder="Enter service" required>
 
-<label>Service Description</label>
-<input type="text" placeholder="Enter service">
+        <label for="total_amount">Total Amount</label>
+        <input type="number" name="total_amount" id="total_amount" placeholder="Enter amount" required>
 
-<label>Total Amount</label>
-<input type="number" placeholder="Enter amount">
+        <label for="invoice_date">Date</label>
+        <input type="date" name="invoice_date" id="invoice_date" required>
 
-<label>Date</label>
-<input type="date">
+        <label for="payment_status">Payment Status</label>
+        <select name="payment_status" id="payment_status" required>
+            <option value="Due">Due</option>
+            <option value="Paid">Paid</option>
+        </select>
 
-<button type="submit">Generate Bill</button>
+        <button type="submit" name="generate_bill">Generate Bill</button>
 
-</form>
-
+    </form>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>
