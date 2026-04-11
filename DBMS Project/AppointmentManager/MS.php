@@ -1,3 +1,42 @@
+<?php
+session_start();
+$_SESSION['Manager_ID'] = '4001';//for test
+
+include "../db.php"; // Make sure this path correctly points to your database connection file
+
+if (!isset($_SESSION['Manager_ID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../SystemAccess.html'>log in</a> as a Manager to access this page.</h2>";
+    exit;
+}
+
+$manager_id = $_SESSION['Manager_ID'];
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize user inputs to prevent SQL injection
+    $patient_id = $conn->real_escape_string($_POST['Patient_ID']);
+    $doctor_id = $conn->real_escape_string($_POST['Doctor_ID']);
+    $date = $conn->real_escape_string($_POST['date']);
+    $time = $conn->real_escape_string($_POST['time']);
+    $reason = $conn->real_escape_string($_POST['reason']);
+    $status = $conn->real_escape_string($_POST['status']);
+
+    // Handle optional fields (set to NULL if empty)
+    $time_val = !empty($time) ? "'$time'" : "NULL";
+    $reason_val = !empty($reason) ? "'$reason'" : "NULL";
+
+ 
+    $sql = "INSERT INTO appointment (Doctor_ID, Patient_ID, status, reason, date, time, Manager_ID) 
+            VALUES ('$doctor_id', '$patient_id', '$status', $reason_val, '$date', $time_val, '$manager_id')";
+
+    if ($conn->query($sql) === TRUE) {
+        $message = "<div class='alert success'>Appointment added successfully!</div>";
+    } else {
+        $message = "<div class='alert error'>Error: " . $conn->error . "</div>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +94,7 @@
             box-sizing: border-box;
         }
 
-        button {
+        button[type="submit"] {
             background: #4da6ff;
             color: white;
             border: none;
@@ -66,9 +105,14 @@
             margin-top: 10px;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
             background: #3399ff;
         }
+
+        /* Alerts */
+        .alert { padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold; text-align: center; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
         footer {
             text-align: center;
@@ -89,7 +133,10 @@
 </header>
 
 <div class="form-box">
-    <form action="process_schedule.php" method="POST">
+    
+    <?php echo $message; ?>
+
+    <form action="" method="POST">
 
         <label for="p_id">Patient ID</label>
         <input type="number" id="p_id" name="Patient_ID" placeholder="Enter Patient ID" required>
@@ -98,7 +145,7 @@
         <input type="number" id="d_id" name="Doctor_ID" placeholder="Enter Doctor ID (e.g. 2001)" required>
 
         <label for="app_date">Appointment Date</label>
-        <input type="date" id="app_date" name="date" required>
+        <input type="date" id="app_date" name="date" required min="<?php echo date('Y-m-d'); ?>">
 
         <label for="app_time">Appointment Time</label>
         <input type="time" id="app_time" name="time">

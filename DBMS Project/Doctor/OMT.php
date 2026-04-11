@@ -1,3 +1,41 @@
+<?php
+session_start();
+$_SESSION['Doctor_ID'] = '2001';//for test
+
+include "../db.php"; // Make sure this path correctly points to your database connection file
+
+// 1. Check if the Doctor is logged in
+if (!isset($_SESSION['Doctor_ID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to order medical tests.</h2>";
+    exit;
+}
+
+$doctor_id = $_SESSION['Doctor_ID'];
+$message = "";
+
+// 2. Handle Form Submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize user inputs
+    $patient_id = $conn->real_escape_string($_POST['Patient_ID']);
+    $test_name = $conn->real_escape_string($_POST['test_name']);
+    $priority = $conn->real_escape_string($_POST['priority']);
+    $additional_notes = $conn->real_escape_string($_POST['additional_notes']);
+    
+    $current_date = date('Y-m-d');
+    $notes_val = !empty($additional_notes) ? "'$additional_notes'" : "NULL";
+
+// The updated query
+    $sql = "INSERT INTO medicaltest (Patient_ID, Doctor_ID, test, priority, additional_notes, date) 
+            VALUES ('$patient_id', '$doctor_id', '$test_name', '$priority', $notes_val, '$current_date')";
+
+    if ($conn->query($sql) === TRUE) {
+        $message = "<div class='alert success'>Test order submitted successfully!</div>";
+    } else {
+        $message = "<div class='alert error'>Error: " . $conn->error . "</div>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +105,11 @@ button:hover {
     background-color: #3399ff;
 }
 
+/* Alerts */
+.alert { padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold; text-align: center; }
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
 /* Footer */
 footer {
     background: #e8eef2;
@@ -86,6 +129,8 @@ footer {
 </header>
 
 <div class="form-container">
+
+    <?php echo $message; ?>
 
     <form action="" method="POST">
 
