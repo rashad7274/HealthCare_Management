@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2026 at 11:51 PM
+-- Generation Time: Apr 11, 2026 at 12:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,14 +45,14 @@ INSERT INTO `accountant` (`Accountant_ID`, `Name`, `Phone_Number`, `Email_Addres
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appoinment`
+-- Table structure for table `appointment`
 --
 
-CREATE TABLE `appoinment` (
+CREATE TABLE `appointment` (
   `appointment_id` int(11) NOT NULL,
   `Doctor_ID` int(11) NOT NULL,
   `Patient_ID` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Pending',
   `reason` varchar(50) DEFAULT NULL,
   `date` date NOT NULL,
   `time` time DEFAULT NULL,
@@ -60,20 +60,22 @@ CREATE TABLE `appoinment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `appoinment`
+-- Dumping data for table `appointment`
 --
 
-INSERT INTO `appoinment` (`appointment_id`, `Doctor_ID`, `Patient_ID`, `status`, `reason`, `date`, `time`, `Manager_ID`) VALUES
+INSERT INTO `appointment` (`appointment_id`, `Doctor_ID`, `Patient_ID`, `status`, `reason`, `date`, `time`, `Manager_ID`) VALUES
 (101, 2002, 1002, 'Approved', 'fever', '2026-04-10', '10:26:32', 4001),
-(102, 2001, 1001, 'Cancelled', 'Minor pain', '2026-04-23', '20:26:32', 4002);
+(102, 2001, 1001, 'Pending', '', '2026-04-23', '20:26:32', 4002),
+(104, 2001, 1001, 'Pending', 'djs', '2026-04-17', '19:45:00', NULL),
+(105, 2002, 1001, 'Pending', 'fever', '2026-04-18', '19:24:00', 4001);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appoinment_manager`
+-- Table structure for table `appointment_manager`
 --
 
-CREATE TABLE `appoinment_manager` (
+CREATE TABLE `appointment_manager` (
   `Appointment_Manager_ID` int(11) NOT NULL,
   `Appointment_Manager_Name` varchar(50) NOT NULL,
   `Phone_Number` int(11) NOT NULL,
@@ -81,10 +83,10 @@ CREATE TABLE `appoinment_manager` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `appoinment_manager`
+-- Dumping data for table `appointment_manager`
 --
 
-INSERT INTO `appoinment_manager` (`Appointment_Manager_ID`, `Appointment_Manager_Name`, `Phone_Number`, `Email_Address`) VALUES
+INSERT INTO `appointment_manager` (`Appointment_Manager_ID`, `Appointment_Manager_Name`, `Phone_Number`, `Email_Address`) VALUES
 (4001, 'Bruce Banner', 1345453338, 'bb4001@private.com'),
 (4002, 'Natasha Romanoff', 148462870, 'nr4002@private.com');
 
@@ -145,16 +147,17 @@ CREATE TABLE `insurance_claim` (
   `Claim_ID` int(11) NOT NULL,
   `Officer_ID` int(11) NOT NULL,
   `Status` varchar(50) NOT NULL DEFAULT 'Pending',
-  `Description` varchar(500) DEFAULT NULL
+  `Description` varchar(500) DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `insurance_claim`
 --
 
-INSERT INTO `insurance_claim` (`Invoice_ID`, `Patient_ID`, `Amount`, `Claim_ID`, `Officer_ID`, `Status`, `Description`) VALUES
-(502, 1002, 10000.00, 601, 6001, 'Approved', NULL),
-(501, 1001, 100.00, 602, 6002, 'Rejected', NULL);
+INSERT INTO `insurance_claim` (`Invoice_ID`, `Patient_ID`, `Amount`, `Claim_ID`, `Officer_ID`, `Status`, `Description`, `date`) VALUES
+(502, 1002, 10000.00, 601, 6001, 'Approved', NULL, '2026-04-11'),
+(501, 1001, 100.00, 602, 6002, 'Rejected', NULL, '2026-04-11');
 
 -- --------------------------------------------------------
 
@@ -295,7 +298,9 @@ CREATE TABLE `symptomlog` (
 
 INSERT INTO `symptomlog` (`log_ID`, `Patient_ID`, `symptom`, `additional_notes`, `severity`, `date`) VALUES
 (201, 1001, 'pain', 'fever', 'Normal', '2026-04-10'),
-(202, 1002, 'Loosing mind', 'hallucinate sometimes', 'Urgent', '2026-04-15');
+(202, 1002, 'Loosing mind', 'hallucinate sometimes', 'Urgent', '2026-04-15'),
+(203, 1001, 'Headache', 'm', 'Moderate', '2026-04-11'),
+(204, 1001, 'Headache', 'm', 'Moderate', '2026-04-11');
 
 --
 -- Indexes for dumped tables
@@ -308,18 +313,18 @@ ALTER TABLE `accountant`
   ADD PRIMARY KEY (`Accountant_ID`);
 
 --
--- Indexes for table `appoinment`
+-- Indexes for table `appointment`
 --
-ALTER TABLE `appoinment`
+ALTER TABLE `appointment`
   ADD PRIMARY KEY (`appointment_id`),
-  ADD UNIQUE KEY `Doctor_ID` (`Doctor_ID`),
-  ADD UNIQUE KEY `Patient_ID` (`Patient_ID`),
-  ADD KEY `Appointment_Manager_ID` (`Manager_ID`);
+  ADD KEY `Appointment_Doctor_ID` (`Doctor_ID`),
+  ADD KEY `Appointment_Manager_ID` (`Manager_ID`),
+  ADD KEY `Appointment_Patient_ID` (`Patient_ID`);
 
 --
--- Indexes for table `appoinment_manager`
+-- Indexes for table `appointment_manager`
 --
-ALTER TABLE `appoinment_manager`
+ALTER TABLE `appointment_manager`
   ADD PRIMARY KEY (`Appointment_Manager_ID`);
 
 --
@@ -398,40 +403,40 @@ ALTER TABLE `accountant`
   MODIFY `Accountant_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3004;
 
 --
--- AUTO_INCREMENT for table `appoinment`
+-- AUTO_INCREMENT for table `appointment`
 --
-ALTER TABLE `appoinment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+ALTER TABLE `appointment`
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
--- AUTO_INCREMENT for table `appoinment_manager`
+-- AUTO_INCREMENT for table `appointment_manager`
 --
-ALTER TABLE `appoinment_manager`
-  MODIFY `Appointment_Manager_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4003;
+ALTER TABLE `appointment_manager`
+  MODIFY `Appointment_Manager_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4004;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `Doctor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;
+  MODIFY `Doctor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2003;
 
 --
 -- AUTO_INCREMENT for table `insuranceofficer`
 --
 ALTER TABLE `insuranceofficer`
-  MODIFY `iOfficerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6004;
+  MODIFY `iOfficerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6003;
 
 --
 -- AUTO_INCREMENT for table `insurance_claim`
 --
 ALTER TABLE `insurance_claim`
-  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=604;
+  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=603;
 
 --
 -- AUTO_INCREMENT for table `investigator`
 --
 ALTER TABLE `investigator`
-  MODIFY `Investigator_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5003;
+  MODIFY `Investigator_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5004;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -443,7 +448,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `medicaltest`
 --
 ALTER TABLE `medicaltest`
-  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
+  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=303;
 
 --
 -- AUTO_INCREMENT for table `medical_record`
@@ -461,18 +466,18 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT for table `symptomlog`
 --
 ALTER TABLE `symptomlog`
-  MODIFY `log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `appoinment`
+-- Constraints for table `appointment`
 --
-ALTER TABLE `appoinment`
+ALTER TABLE `appointment`
   ADD CONSTRAINT `Appointment_Doctor_ID` FOREIGN KEY (`Doctor_ID`) REFERENCES `doctor` (`Doctor_ID`),
-  ADD CONSTRAINT `Appointment_Manager_ID` FOREIGN KEY (`Manager_ID`) REFERENCES `appoinment_manager` (`Appointment_Manager_ID`),
+  ADD CONSTRAINT `Appointment_Manager_ID` FOREIGN KEY (`Manager_ID`) REFERENCES `appointment_manager` (`Appointment_Manager_ID`),
   ADD CONSTRAINT `Appointment_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `patient` (`Patient_ID`);
 
 --
