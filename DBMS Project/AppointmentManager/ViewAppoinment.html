@@ -1,59 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>View Appointments</title>
     <style>
-        body { font-family: Arial; background: #f4f6f8; }
-        h2 { text-align: center; }
-        table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-            background: #eaeaea;
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #f4f6f8; 
+            margin: 0; 
+            padding: 0; 
         }
-        th, td {
+
+        /* Colored Header Section */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* Filter Node Styling */
+        .filter-container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 25px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .filter-group input, .filter-group select {
             padding: 10px;
             border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            min-width: 180px;
+        }
+
+        .btn-search {
+            padding: 10px 25px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-search:hover {
+            background: #2980b9;
+        }
+
+        .btn-clear {
+            padding: 10px 15px;
+            background: #e2e8f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 95%;
+            max-width: 1150px;
+            margin: 10px auto 50px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #edf2f7;
             text-align: center;
         }
-        th { background: #a9c0d3; }
+
+        th { 
+            background: #e2e8f0; 
+            color: #2d3748;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .status-confirmed { color: #2f855a; font-weight: bold; }
+        .status-pending { color: #c05621; font-weight: bold; }
+
         footer {
             text-align: center;
-            padding: 15px;
-            background: #d0d6db;
-            margin-top: 50px;
+            padding: 20px;
+            background: #2d3748;
+            color: #a0aec0;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-<h2>View Appointments</h2>
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <p>Appointment Administration & Contact Registry</p>
+</header>
+
+<div class="filter-container">
+    <div class="filter-group">
+        <label>Appointment ID</label>
+        <input type="text" placeholder="Search ID...">
+    </div>
+
+    <div class="filter-group">
+        <label>Doctor Name (Combobox)</label>
+        <select>
+            <option value="">All Doctors</option>
+            <option value="1">Dr. Smith</option>
+            <option value="2">Dr. Rahman</option>
+            <option value="3">Dr. Johnson</option>
+        </select>
+    </div>
+
+    <div class="filter-group">
+        <label>Appointment Date</label>
+        <input type="date">
+    </div>
+
+    <button class="btn-search">Search</button>
+    <a href="#" class="btn-clear">Clear</a>
+</div>
 
 <table>
-    <tr>
-        <th>Patient Name</th>
-        <th>Doctor</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-    </tr>
-    <tr>
-        <td>John Doe</td>
-        <td>Dr. Smith</td>
-        <td>20 Mar 2026</td>
-        <td>10:00 AM</td>
-        <td>Confirmed</td>
-    </tr>
-    <tr>
-        <td>Jane Ali</td>
-        <td>Dr. Rahman</td>
-        <td>21 Mar 2026</td>
-        <td>12:30 PM</td>
-        <td>Pending</td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Appt ID</th>
+            <th>Patient Name</th>
+            <th>Patient Phone</th>
+            <th>Doctor</th>
+            <th>Doctor Phone</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>101</strong></td>
+            <td>John Doe</td>
+            <td>01712345678</td>
+            <td>Dr. Smith</td>
+            <td>01811122233</td>
+            <td>20 Mar 2026</td>
+            <td>10:00 AM</td>
+            <td><span class="status-confirmed">Confirmed</span></td>
+        </tr>
+        <tr>
+            <td><strong>102</strong></td>
+            <td>Jane Ali</td>
+            <td>01987654321</td>
+            <td>Dr. Rahman</td>
+            <td>01544455566</td>
+            <td>21 Mar 2026</td>
+            <td>12:30 PM</td>
+            <td><span class="status-pending">Pending</span></td>
+        </tr>
+        <tr>
+            <td><strong>103</strong></td>
+            <td>Robert Brown</td>
+            <td>01611223344</td>
+            <td>Dr. Johnson</td>
+            <td>01377788899</td>
+            <td>22 Mar 2026</td>
+            <td>03:15 PM</td>
+            <td><span class="status-confirmed">Confirmed</span></td>
+        </tr>
+    </tbody>
 </table>
+
 <footer>
     Smart Healthcare Management System © 2026
 </footer>
+
 </body>
 </html>

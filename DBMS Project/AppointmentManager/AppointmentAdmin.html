@@ -11,7 +11,7 @@
 
         .main-content { width: 95%; margin: 30px auto; display: flex; flex-direction: column; gap: 20px; }
 
-        /* Search Filter Section */
+        /* Search Filter Section Updated */
         .filter-card {
             background: white;
             padding: 20px;
@@ -20,10 +20,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
-        .filter-card input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 300px; }
-        .btn-search { background: #4A90E2; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        .filter-group-inline { display: flex; flex-direction: column; gap: 5px; }
+        .filter-group-inline label { font-size: 11px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; }
+        .filter-card input, .filter-card select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; min-width: 180px; }
+        
+        .btn-search { background: #4A90E2; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; align-self: flex-end; }
+        .btn-search:hover { background: #357abd; }
 
         .content-layout { display: flex; gap: 25px; }
 
@@ -74,9 +80,33 @@
 <div class="main-content">
     
     <div class="filter-card">
-        <form action="" method="GET" style="display: flex; gap: 10px;">
-            <input type="text" name="search_id" placeholder="Search by Appointment ID or Patient Name...">
-            <button type="submit" class="btn-search">Filter Appointments</button>
+        <form action="" method="GET" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+            
+            <div class="filter-group-inline">
+                <label>Search Identity</label>
+                <input type="text" name="search_id" placeholder="ID or Patient Name...">
+            </div>
+
+            <div class="filter-group-inline">
+                <label>Doctor Name</label>
+                <select name="filter_doctor">
+                    <option value="">All Doctors</option>
+                    <option value="2001">Dr. J Epstein</option>
+                    <option value="2002">Dr. Walter White</option>
+                </select>
+            </div>
+
+            <div class="filter-group-inline">
+                <label>Appointment Status</label>
+                <select name="filter_status">
+                    <option value="">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-search">Apply Filters</button>
         </form>
     </div>
 
@@ -91,8 +121,7 @@
                 <label>Change Status</label>
                 <select name="new_status">
                     <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                    <option value="Completed">Completed</option>
+                    <option value="Approved">Approved</option>
                     <option value="Cancelled">Cancelled</option>
                 </select>
 
@@ -114,7 +143,6 @@
                 <thead>
                     <tr>
                         <th>Appt ID</th>
-                        <th>Doc ID</th>
                         <th>Doctor Name</th>
                         <th>Patient Name</th>
                         <th>Reason</th>
@@ -125,24 +153,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>#8001</strong></td>
-                        <td>101</td>
-                        <td>Dr. Smith</td>
-                        <td>John Doe</td>
-                        <td>Chest Pain</td>
-                        <td>2026-04-15</td>
-                        <td>10:30 AM</td>
-                        <td><span class="status-badge pending">Pending</span></td>
+                        <td><strong>#101</strong></td>
+                        <td>Dr. Walter White</td>
+                        <td>M Rahman</td>
+                        <td>Fever</td>
+                        <td>2026-04-10</td>
+                        <td>10:26 AM</td>
+                        <td><span class="status-badge confirmed">Approved</span></td>
                     </tr>
                     <tr>
-                        <td><strong>#8002</strong></td>
-                        <td>102</td>
-                        <td>Dr. Rahman</td>
-                        <td>Sarah Khan</td>
-                        <td>Neurology Follow-up</td>
-                        <td>2026-04-15</td>
-                        <td>04:15 PM</td>
-                        <td><span class="status-badge confirmed">Confirmed</span></td>
+                        <td><strong>#102</strong></td>
+                        <td>Dr. J Epstein</td>
+                        <td>D Khan</td>
+                        <td>Minor Pain</td>
+                        <td>2026-04-23</td>
+                        <td>08:26 PM</td>
+                        <td><span class="status-badge cancelled">Cancelled</span></td>
                     </tr>
                 </tbody>
             </table>
