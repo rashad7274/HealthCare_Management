@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2026 at 12:57 PM
+-- Generation Time: Apr 11, 2026 at 07:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,8 +66,9 @@ CREATE TABLE `appointment` (
 INSERT INTO `appointment` (`appointment_id`, `Doctor_ID`, `Patient_ID`, `status`, `reason`, `date`, `time`, `Manager_ID`) VALUES
 (101, 2002, 1002, 'Approved', 'fever', '2026-04-10', '10:26:32', 4001),
 (102, 2001, 1001, 'Pending', '', '2026-04-23', '20:26:32', 4002),
-(104, 2001, 1001, 'Pending', 'djs', '2026-04-17', '19:45:00', NULL),
-(105, 2002, 1001, 'Pending', 'fever', '2026-04-18', '19:24:00', 4001);
+(104, 2001, 1001, 'Completed', 'djs', '2026-04-17', '19:45:00', NULL),
+(105, 2002, 1001, 'Pending', 'fever', '2026-04-18', '19:24:00', 4001),
+(106, 2002, 1002, 'Approved', 'Argent', '2026-04-21', '00:27:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -157,7 +158,9 @@ CREATE TABLE `insurance_claim` (
 
 INSERT INTO `insurance_claim` (`Invoice_ID`, `Patient_ID`, `Amount`, `Claim_ID`, `Officer_ID`, `Status`, `Description`, `date`) VALUES
 (502, 1002, 10000.00, 601, 6001, 'Approved', NULL, '2026-04-11'),
-(501, 1001, 100.00, 602, 6002, 'Rejected', NULL, '2026-04-11');
+(501, 1001, 100.00, 602, 6002, 'Rejected', NULL, '2026-04-11'),
+(506, 1002, 1.05, 603, 6001, 'Pending', 'NULL', '2026-04-11'),
+(501, 1001, 500000.00, 604, 6001, 'Pending', 'N/A', '2026-04-17');
 
 -- --------------------------------------------------------
 
@@ -202,7 +205,8 @@ CREATE TABLE `invoice` (
 
 INSERT INTO `invoice` (`invoice_Id`, `accountantID`, `patient_Id`, `description`, `amount`, `date`, `status`) VALUES
 (501, 3003, 1001, 'test', 500000.99, '2026-04-10 21:45:41', 'Due'),
-(502, 3002, 1002, 'check up', 510.00, '2026-04-10 21:45:41', 'Paid');
+(502, 3002, 1002, 'check up', 510.00, '2026-04-10 21:45:41', 'Paid'),
+(506, 3003, 1002, 'NULL', 2929.00, '2026-04-11 14:58:13', 'Due');
 
 -- --------------------------------------------------------
 
@@ -227,8 +231,9 @@ CREATE TABLE `medicaltest` (
 --
 
 INSERT INTO `medicaltest` (`test_ID`, `Doctor_ID`, `Patient_ID`, `Test_Type`, `InvestigatorID`, `Priority_Level`, `Result_Status`, `Report_File_Path`, `Result_Details`) VALUES
-(301, 2001, 1001, 'X-Ray', 5002, 'Urgent', 'Pending', NULL, 'Extremely Injured'),
-(302, 2002, 1002, 'Eye power test', NULL, 'Normal', 'Done', NULL, 'Normal');
+(301, 2001, 1001, 'X-Ray', 5001, 'Urgent', 'Completed', NULL, 'n/a'),
+(302, 2002, 1002, 'Eye power test', 5001, 'Normal', 'Pending', NULL, 'null'),
+(303, 2002, 1002, 'Blood Test', 5001, 'Urgent', 'In Progress', NULL, 'N?A');
 
 -- --------------------------------------------------------
 
@@ -252,7 +257,11 @@ CREATE TABLE `medical_record` (
 --
 
 INSERT INTO `medical_record` (`record_id`, `report_ID`, `patient_id`, `doctor_id`, `diagnosis`, `treatment`, `date`, `additional_Notes`) VALUES
-(401, 301, 1001, 2001, NULL, NULL, '2026-04-11', '');
+(401, 301, 1001, 2001, NULL, NULL, '2026-04-11', ''),
+(402, NULL, 1001, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
+(403, 301, 1001, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
+(405, 302, 1002, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
+(406, 303, 1002, 2002, 'Blood Test', 'Vitamin Suppliment', '2026-04-11', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -377,7 +386,8 @@ ALTER TABLE `medicaltest`
 ALTER TABLE `medical_record`
   ADD PRIMARY KEY (`record_id`),
   ADD KEY `record_Doctor_ID` (`doctor_id`),
-  ADD KEY `record_Patient_ID` (`patient_id`);
+  ADD KEY `record_Patient_ID` (`patient_id`),
+  ADD KEY `record_report_id` (`report_ID`);
 
 --
 -- Indexes for table `patient`
@@ -406,7 +416,7 @@ ALTER TABLE `accountant`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `appointment_manager`
@@ -430,7 +440,7 @@ ALTER TABLE `insuranceofficer`
 -- AUTO_INCREMENT for table `insurance_claim`
 --
 ALTER TABLE `insurance_claim`
-  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=603;
+  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
 
 --
 -- AUTO_INCREMENT for table `investigator`
@@ -442,19 +452,19 @@ ALTER TABLE `investigator`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=503;
+  MODIFY `invoice_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=507;
 
 --
 -- AUTO_INCREMENT for table `medicaltest`
 --
 ALTER TABLE `medicaltest`
-  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=303;
+  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
 
 --
 -- AUTO_INCREMENT for table `medical_record`
 --
 ALTER TABLE `medical_record`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=407;
 
 --
 -- AUTO_INCREMENT for table `patient`
@@ -508,7 +518,8 @@ ALTER TABLE `medicaltest`
 --
 ALTER TABLE `medical_record`
   ADD CONSTRAINT `record_Doctor_ID` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`Doctor_ID`),
-  ADD CONSTRAINT `record_Patient_ID` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`Patient_ID`);
+  ADD CONSTRAINT `record_Patient_ID` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`Patient_ID`),
+  ADD CONSTRAINT `record_report_id` FOREIGN KEY (`report_ID`) REFERENCES `medicaltest` (`test_ID`);
 
 --
 -- Constraints for table `symptomlog`
