@@ -5,7 +5,6 @@
 <title>View Daily Schedule</title>
 
 <style>
-
 body{
     font-family: Arial, sans-serif;
     background-color:#f2f6f8;
@@ -13,8 +12,6 @@ body{
     padding:0;
     text-align:center;
 }
-
-/* Header */
 
 header{
     background-color:#d6ecff;
@@ -30,10 +27,8 @@ header h3{
     color:#555;
 }
 
-/* Schedule Box */
-
 .schedule-container{
-    width:70%;
+    width:80%;
     margin:40px auto;
     background:white;
     padding:25px;
@@ -41,7 +36,45 @@ header h3{
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Table */
+/* Filter Box Styling */
+.filter-box {
+    margin-bottom: 25px;
+    background: #eef7ff;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+select, input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #3399ff;
+}
+
+.modify-btn {
+    background-color: #28a745;
+}
+
+.modify-btn:hover {
+    background-color: #218838;
+}
 
 table{
     width:100%;
@@ -52,6 +85,7 @@ table{
 th, td{
     border:1px solid #ddd;
     padding:10px;
+    vertical-align: middle;
 }
 
 th{
@@ -62,8 +96,6 @@ tr:hover{
     background-color:#f5f5f5;
 }
 
-/* Footer */
-
 footer{
     background:#e8eef2;
     padding:15px;
@@ -71,7 +103,6 @@ footer{
     font-size:14px;
     color:#444;
 }
-
 </style>
 </head>
 
@@ -84,7 +115,18 @@ footer{
 
 <div class="schedule-container">
 
-<h2>Today's Appointments</h2>
+<h2>Your Appointments</h2>
+
+<div class="filter-box">
+    <label for="filter_status"><strong>Filter by Status:</strong></label>
+    <select id="filter_status">
+        <option value="">All Appointments</option>
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+    </select>
+    <button>Filter</button>
+</div>
 
 <table>
 
@@ -92,35 +134,59 @@ footer{
 <th>Time</th>
 <th>Patient Name</th>
 <th>Appointment Type</th>
-<th>Status</th>
+<th>Current Status</th>
+<th>Modify Status</th>
 </tr>
 
 <tr>
-<td>09:00 AM</td>
-<td>John Smith</td>
-<td>General Checkup</td>
-<td>Confirmed</td>
+    <td>09:00 AM</td>
+    <td>John Smith</td>
+    <td>General Checkup</td>
+    <td><strong>Confirmed</strong></td>
+    <td>
+        <div style="display:flex; gap:5px; justify-content:center;">
+            <select>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed" selected>Confirmed</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <button class="modify-btn">Update</button>
+        </div>
+    </td>
 </tr>
 
 <tr>
-<td>10:30 AM</td>
-<td>Sarah Ahmed</td>
-<td>Follow-up Visit</td>
-<td>Confirmed</td>
+    <td>10:30 AM</td>
+    <td>Sarah Ahmed</td>
+    <td>Follow-up Visit</td>
+    <td><strong>Pending</strong></td>
+    <td>
+        <div style="display:flex; gap:5px; justify-content:center;">
+            <select>
+                <option value="Pending" selected>Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <button class="modify-btn">Update</button>
+        </div>
+    </td>
 </tr>
 
 <tr>
-<td>12:00 PM</td>
-<td>Michael Lee</td>
-<td>Consultation</td>
-<td>Pending</td>
-</tr>
-
-<tr>
-<td>02:00 PM</td>
-<td>Fatima Khan</td>
-<td>Medical Review</td>
-<td>Confirmed</td>
+    <td>12:00 PM</td>
+    <td>Michael Lee</td>
+    <td>Consultation</td>
+    <td><strong>Completed</strong></td>
+    <td>
+        <div style="display:flex; gap:5px; justify-content:center;">
+            <select>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed" selected>Completed</option>
+            </select>
+            <button class="modify-btn">Update</button>
+        </div>
+    </td>
 </tr>
 
 </table>

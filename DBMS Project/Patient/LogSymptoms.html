@@ -5,7 +5,6 @@
 <title>Log Symptoms</title>
 
 <style>
-
 body{
     font-family: Arial, sans-serif;
     background-color:#f2f6f8;
@@ -15,7 +14,6 @@ body{
 }
 
 /* Header */
-
 header{
     background-color:#d6ecff;
     padding:20px;
@@ -31,7 +29,6 @@ header h3{
 }
 
 /* Form Container */
-
 .form-container{
     width:420px;
     margin:40px auto;
@@ -44,8 +41,11 @@ header h3{
 
 label{
     font-weight:bold;
+    display: block;
+    margin-top: 10px;
 }
 
+/* Added box-sizing so elements don't overflow */
 input, select, textarea{
     width:100%;
     padding:8px;
@@ -53,10 +53,10 @@ input, select, textarea{
     margin-bottom:15px;
     border-radius:5px;
     border:1px solid #ccc;
+    box-sizing: border-box; 
 }
 
 /* Button */
-
 button{
     width:100%;
     padding:10px;
@@ -65,6 +65,9 @@ button{
     color:white;
     border-radius:5px;
     cursor:pointer;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 button:hover{
@@ -72,7 +75,6 @@ button:hover{
 }
 
 /* Footer */
-
 footer{
     background:#e8eef2;
     padding:15px;
@@ -80,54 +82,52 @@ footer{
     font-size:14px;
     color:#444;
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Log Symptoms</h3>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Log Symptoms</h3>
 </header>
 
 <div class="form-container">
 
-<form>
+    <form action="" method="POST">
 
-<label>Patient ID</label>
-<input type="text" placeholder="Enter your ID">
+        <input type="hidden" name="Patient_ID" value="">
+        <input type="hidden" name="date" value="">
 
-<label>Date</label>
-<input type="date">
+        <label>Select Symptom</label>
+        <select name="symptom" required>
+            <option value="">-- Select a Symptom --</option>
+            <option value="Fever">Fever</option>
+            <option value="Cough">Cough</option>
+            <option value="Headache">Headache</option>
+            <option value="Fatigue">Fatigue</option>
+            <option value="Other">Other</option>
+        </select>
 
-<label>Select Symptom</label>
-<select>
-<option>Fever</option>
-<option>Cough</option>
-<option>Headache</option>
-<option>Fatigue</option>
-<option>Other</option>
-</select>
+        <label>Severity</label>
+        <select name="severity" required>
+            <option value="">-- Select Severity --</option>
+            <option value="Mild">Mild</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Severe">Severe</option>
+        </select>
 
-<label>Severity</label>
-<select>
-<option>Mild</option>
-<option>Moderate</option>
-<option>Severe</option>
-</select>
+        <label>Additional Notes</label>
+        <textarea name="additional_notes" rows="3" placeholder="Describe your symptoms..."></textarea>
 
-<label>Additional Notes</label>
-<textarea rows="3" placeholder="Describe your symptoms"></textarea>
+        <button type="submit">Submit Symptoms</button>
 
-<button type="submit">Submit Symptoms</button>
-
-</form>
+    </form>
 
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>

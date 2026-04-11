@@ -5,130 +5,174 @@
 <title>Patient History</title>
 
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f6f8;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
+    header {
+        background-color: #d6ecff;
+        padding: 20px;
+    }
 
-/* Header */
+    header h1 {
+        margin: 0;
+    }
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-}
+    header h3 {
+        margin: 5px 0;
+        color: #555;
+    }
 
-header h1{
-    margin:0;
-}
+    .history-container {
+        width: 85%;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
+    /* Filter Box / Datepicker Styling */
+    .filter-box {
+        margin-bottom: 25px;
+        background: #eef7ff;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        align-items: center;
+    }
 
-/* Container */
+    .filter-box input[type="date"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
 
-.history-container{
-    width:75%;
-    margin:40px auto;
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-}
+    .btn-filter {
+        padding: 8px 20px;
+        background-color: #4da6ff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
 
-/* Table */
+    .btn-clear {
+        padding: 8px 15px;
+        background-color: #ccc;
+        color: #333;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 14px;
+    }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
+    .btn-filter:hover {
+        background-color: #3399ff;
+    }
 
-th, td{
-    border:1px solid #ddd;
-    padding:10px;
-}
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-th{
-    background-color:#eef7ff;
-}
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
 
-tr:hover{
-    background-color:#f5f5f5;
-}
+    th {
+        background-color: #eef7ff;
+        color: #333;
+    }
 
-/* Footer */
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:40px;
-    font-size:14px;
-    color:#444;
-}
-
+    /* Footer */
+    footer {
+        background: #e8eef2;
+        padding: 15px;
+        margin-top: 40px;
+        font-size: 14px;
+        color: #444;
+    }
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Patient History</h3>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Patient Medical History</h3>
 </header>
 
 <div class="history-container">
+    <h2>Completed Visit Records</h2>
 
-<h2>Patient Medical History</h2>
+    <div class="filter-box">
+        <label for="visit_date"><strong>Filter by Visit Date:</strong></label>
+        <input type="date" id="visit_date">
+        <button class="btn-filter">Filter History</button>
+        <a href="#" class="btn-clear">Clear</a>
+    </div>
 
-<table>
-
-<tr>
-<th>Patient Name</th>
-<th>Visit Date</th>
-<th>Diagnosis</th>
-<th>Treatment</th>
-</tr>
-
-<tr>
-<td>John Smith</td>
-<td>12 March 2026</td>
-<td>Flu</td>
-<td>Rest and Paracetamol</td>
-</tr>
-
-<tr>
-<td>Sarah Ahmed</td>
-<td>25 February 2026</td>
-<td>Skin Allergy</td>
-<td>Antihistamine Cream</td>
-</tr>
-
-<tr>
-<td>Michael Lee</td>
-<td>10 January 2026</td>
-<td>High Fever</td>
-<td>Medication and Hydration</td>
-</tr>
-
-<tr>
-<td>Fatima Khan</td>
-<td>05 January 2026</td>
-<td>Blood Pressure</td>
-<td>BP Monitoring and Medicine</td>
-</tr>
-
-</table>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Visit Date</th>
+                <th>Diagnosis</th>
+                <th>Treatment</th>
+                <th>Consultant Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Smith</td>
+                <td>12 March 2026</td>
+                <td>Acute Bronchitis</td>
+                <td>Antibiotics and Cough Syrup</td>
+                <td>$50.00</td>
+            </tr>
+            <tr>
+                <td>Sarah Ahmed</td>
+                <td>28 February 2026</td>
+                <td>Hypertension</td>
+                <td>Lisinopril 10mg Daily</td>
+                <td>$45.00</td>
+            </tr>
+            <tr>
+                <td>Michael Lee</td>
+                <td>15 February 2026</td>
+                <td>Seasonal Allergies</td>
+                <td>Antihistamine Tablet</td>
+                <td>$30.00</td>
+            </tr>
+            <tr>
+                <td>Fatima Khan</td>
+                <td>05 January 2026</td>
+                <td>Routine Checkup</td>
+                <td>Health Supplements</td>
+                <td>$55.00</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>
