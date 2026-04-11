@@ -53,6 +53,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_prescription'])
         body{ font-family: 'Segoe UI', Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
         header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 40px 20px; }
         header h1 { margin: 0; font-size: 26px; }
+        .logout {
+            position: absolute; 
+            right: 20px;     
+            top: 50%;       
+            transform: translateY(-50%);
+            width: auto;      
+            padding: 8px 20px;  
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; 
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .logout:hover { background-color: #cc0000; }
+
         .form-container { width: 450px; margin: -30px auto 40px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: left; }
         label { font-weight: bold; display: block; margin-top: 15px; color: #333; }
         input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; }
@@ -70,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_prescription'])
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Write Prescription Record</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="form-container">

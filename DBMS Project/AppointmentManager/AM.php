@@ -57,7 +57,24 @@ $result = $conn->query($sql);
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; color: #333; margin: 0; padding: 0; }
         header { background-color: #4A90E2; padding: 20px; color: white; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        
+        .logout {
+            position: absolute; 
+            right: 20px;     
+            top: 50%;       
+            transform: translateY(-50%);
+            width: auto;      
+            padding: 8px 20px;  
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; 
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .logout:hover { background-color: #cc0000; }
         .main-content { width: 95%; margin: 20px auto; display: flex; flex-direction: column; gap: 20px; }
 
         /* Filter Section */
@@ -111,6 +128,7 @@ $result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <p>Appointment Administration Portal</p>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="main-content">

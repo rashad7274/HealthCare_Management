@@ -59,7 +59,7 @@ $conn->close();
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Financial Overview</h3>
-    <button class="logout" onclick="window.location.href='../logout.php'">Logout</button>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <section class="cards">

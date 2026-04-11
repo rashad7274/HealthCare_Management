@@ -66,6 +66,25 @@ header h3{
     margin:5px 0;
     color:#555;
 }
+.logout {
+            position: absolute; 
+            right: 20px;     
+            top: 50%;       
+            transform: translateY(-50%);
+            width: auto;      
+            padding: 8px 20px;  
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; 
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .logout:hover { background-color: #cc0000; }
+
 
 .schedule-container{
     width:80%;
@@ -154,6 +173,7 @@ footer{
 <header>
 <h1>Smart Healthcare Management System</h1>
 <h3>View Daily Schedule</h3>
+<button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="schedule-container">

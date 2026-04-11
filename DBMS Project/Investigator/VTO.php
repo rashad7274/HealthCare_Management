@@ -38,6 +38,24 @@ $result = $conn->query($sql);
 <style>
     body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
     header{ background-color:#d6ecff; padding:20px; border-bottom: 2px solid #b8d8ff; }
+    .logout {
+            position: absolute; 
+            right: 20px;     
+            top: 50%;       
+            transform: translateY(-50%);
+            width: auto;      
+            padding: 8px 20px;  
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; 
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .logout:hover { background-color: #cc0000; }
     .container{ width:90%; margin:30px auto; background:white; padding:25px; border-radius:10px; box-shadow:0px 2px 10px rgba(0,0,0,0.05); }
     .filter-node { margin-bottom: 25px; background: #eef7ff; padding: 15px; border-radius: 8px; display: flex; justify-content: center; gap: 10px; align-items: center; }
     .filter-node select, .filter-node button { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
@@ -57,6 +75,7 @@ $result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Laboratory Investigation Module</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="container">

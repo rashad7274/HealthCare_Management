@@ -137,7 +137,7 @@ $history_result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Invoice Generation</h3>
-    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="form-container">

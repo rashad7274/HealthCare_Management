@@ -60,6 +60,23 @@ $result = $conn->query($sql);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
         .filter-container {
             width: 95%;
             max-width: 1100px;
@@ -103,6 +120,7 @@ $result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <p>Appointment Administration Panel</p>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="filter-container">

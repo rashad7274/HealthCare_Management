@@ -26,6 +26,26 @@ header h3{
     margin:5px 0;
     color:#555;
 }
+.logout {
+        position: absolute; 
+        right: 20px;      
+        top: 50%;        
+        transform: translateY(-50%);
+        width: auto;       
+        padding: 8px 20px;   
+        background-color: #ff6b6b; /* Matches the color in your image */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none; 
+        font-size: 14px;
+        white-space: nowrap;
+        transition: background-color 0.3s;
+    }
+
+    .logout:hover { background-color: #ff4d4d; }
 
 .schedule-container{
     width:80%;
@@ -35,6 +55,7 @@ header h3{
     border-radius:10px;
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
 }
+
 
 /* Filter Box Styling */
 .filter-box {
@@ -111,6 +132,7 @@ footer{
 <header>
 <h1>Smart Healthcare Management System</h1>
 <h3>View Daily Schedule</h3>
+<button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="schedule-container">
