@@ -5,91 +5,91 @@
 <title>Invoice Generation</title>
 
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f6f8;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
+    header {
+        background-color: #d6ecff;
+        padding: 20px;
+        position: relative;
+    }
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-    position:relative;
-}
+    header h1 {
+        margin: 0;
+    }
 
-header h1{
-    margin:0;
-}
+    header h3 {
+        margin: 5px 0;
+        color: #555;
+    }
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
+    .logout {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: auto;
+        padding: 8px 15px;
+        border: none;
+        background-color: #ff6b6b;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-.logout{
-    position:absolute;
-    right:20px;
-    top:20px;
-    width:auto;
-    padding:8px 15px;
-    border:none;
-    background-color:#ff6b6b;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-}
+    .form-container {
+        width: 400px;
+        margin: 50px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        text-align: left;
+    }
 
-.form-container{
-    width:400px;
-    margin:50px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-    text-align:left;
-}
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
 
-label{
-    font-weight:bold;
-}
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box; 
+    }
 
-/* UPDATED: Added 'select' here so the dropdown matches the inputs exactly */
-input, select {
-    width:100%;
-    padding:8px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border-radius:5px;
-    border:1px solid #ccc;
-    box-sizing: border-box; /* Prevents width from overflowing */
-}
+    button.submit-btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #4da6ff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-weight: bold;
+    }
 
-button{
-    width:100%;
-    padding:10px;
-    border:none;
-    background-color:#4da6ff;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-    margin-top: 10px;
-}
+    button.submit-btn:hover {
+        background-color: #3399ff;
+    }
 
-button:hover{
-    background-color:#3399ff;
-}
-
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:60px;
-    font-size:14px;
-    color:#444;
-}
-
+    footer {
+        background: #e8eef2;
+        padding: 15px;
+        margin-top: 60px;
+        font-size: 14px;
+        color: #444;
+    }
 </style>
 </head>
 
@@ -106,25 +106,28 @@ footer{
 
     <form action="process_invoice.php" method="POST">
 
-        <label for="patient_id">Patient ID</label>
-        <input type="text" name="patient_id" id="patient_id" placeholder="Enter patient ID" required>
+        <label for="accountantID">Accountant ID</label>
+        <input type="number" name="accountantID" id="accountantID" placeholder="Enter Accountant ID" required>
 
-        <label for="service_desc">Service Description</label>
-        <input type="text" name="service_desc" id="service_desc" placeholder="Enter service" required>
+        <label for="patient_Id">Patient ID</label>
+        <input type="number" name="patient_Id" id="patient_Id" placeholder="Enter patient ID" required>
 
-        <label for="total_amount">Total Amount</label>
-        <input type="number" name="total_amount" id="total_amount" placeholder="Enter amount" required>
+        <label for="description">Service Description</label>
+        <input type="text" name="description" id="description" placeholder="e.g. Surgery, Consultation" required>
 
-        <label for="invoice_date">Date</label>
-        <input type="date" name="invoice_date" id="invoice_date" required>
+        <label for="amount">Total Amount ($)</label>
+        <input type="number" step="0.01" name="amount" id="amount" placeholder="0.00" required>
 
-        <label for="payment_status">Payment Status</label>
-        <select name="payment_status" id="payment_status" required>
+        <label for="date">Invoice Date</label>
+        <input type="date" name="date" id="date" required>
+
+        <label for="status">Payment Status</label>
+        <select name="status" id="status" required>
             <option value="Due">Due</option>
             <option value="Paid">Paid</option>
         </select>
 
-        <button type="submit" name="generate_bill">Generate Bill</button>
+        <button type="submit" name="generate_bill" class="submit-btn">Generate Bill</button>
 
     </form>
 </div>

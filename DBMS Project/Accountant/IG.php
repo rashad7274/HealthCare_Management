@@ -2,45 +2,46 @@
 session_start();
 
 // --- SESSION & DATABASE HEADER ---
-// For testing purposes, we use '6001' (Bruce Wayne) from your SQL data
-$_SESSION['iOfficerID'] = '6001'; 
+// For testing purposes, we use '3002' (Peter Parker) from your SQL data
+$_SESSION['Accountant_ID'] = '3002'; 
 
 // Include your database connection file
 include "../db.php"; 
 
-// 1. Check if the Insurance Officer is logged in
-if (!isset($_SESSION['iOfficerID'])) {
-    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to manage insurance claims.</h2>";
+// 1. Check if the Accountant is logged in
+if (!isset($_SESSION['Accountant_ID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to generate invoices.</h2>";
     exit;
 }
 
-$officer_id = $_SESSION['iOfficerID'];
+$accountant_id = $_SESSION['Accountant_ID'];
 
 // --- HANDLE FORM SUBMISSION ---
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_claim'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['generate_bill'])) {
     // Collect and sanitize inputs matching SQL schema
-    $Invoice_ID  = $_POST['Invoice_ID'];
-    $Patient_ID  = $_POST['Patient_ID'];
-    $Amount      = $_POST['Amount'];
-    $Status      = $_POST['Status'];
+    $patient_Id  = $_POST['patient_Id'];
+    $description = $_POST['description'];
+    $amount      = $_POST['amount'];
     $date        = $_POST['date'];
-    $Description = $_POST['Description'];
+    $status      = $_POST['status'];
 
-    // Prepare SQL to insert into insurance_claim table
-    // Claim_ID is omitted as it is AUTO_INCREMENT
-    $stmt = $conn->prepare("INSERT INTO insurance_claim (Invoice_ID, Patient_ID, Amount, Officer_ID, Status, Description, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iidisss", $Invoice_ID, $Patient_ID, $Amount, $officer_id, $Status, $Description, $date);
+    // Prepare SQL to insert into invoice table
+    // invoice_Id is omitted as it is AUTO_INCREMENT
+    $stmt = $conn->prepare("INSERT INTO invoice (accountantID, patient_Id, description, amount, date, status) VALUES (?, ?, ?, ?, ?, ?)");
+    
+    // Bind parameters: 'ii' for integers, 's' for string, 'd' for decimal/double
+    $stmt->bind_param("iisdss", $accountant_id, $patient_Id, $description, $amount, $date, $status);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Claim submitted successfully!'); window.location.href='SI.php';</script>";
+        echo "<script>alert('Invoice generated successfully!'); window.location.href='SI_Invoice.php';</script>";
     } else {
         echo "<script>alert('Error: " . $stmt->error . "');</script>";
     }
     $stmt->close();
 }
 
-// Fetch claims history for the table
-$sql = "SELECT * FROM insurance_claim ORDER BY Claim_ID DESC";
+// Fetch invoice history for the table
+$sql = "SELECT * FROM invoice ORDER BY invoice_Id DESC";
 $history_result = $conn->query($sql);
 ?>
 
@@ -48,11 +49,10 @@ $history_result = $conn->query($sql);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Submit Insurance</title>
+    <title>Invoice Generation</title>
     <style>
         body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
         
-        /* Fixed Header and Logout Button CSS */
         header {
             background-color: #d6ecff;
             padding: 20px;
@@ -73,7 +73,7 @@ $history_result = $conn->query($sql);
             transform: translateY(-50%);
             width: auto;      
             padding: 8px 20px;  
-            background-color: #ff4d4d;
+            background-color: #ff6b6b;
             color: white;
             border: none;
             border-radius: 5px;
@@ -83,7 +83,7 @@ $history_result = $conn->query($sql);
             font-size: 14px;
             white-space: nowrap;
         }
-        .logout:hover { background-color: #cc0000; }
+        .logout:hover { background-color: #ee5a5a; }
 
         .form-container{
             width:400px;
@@ -95,7 +95,7 @@ $history_result = $conn->query($sql);
             text-align:left;
         }
         label{ font-weight:bold; display: block; margin-top: 10px; }
-        input, select, textarea{
+        input, select {
             width:100%;
             padding:8px;
             margin-top:5px;
@@ -127,9 +127,8 @@ $history_result = $conn->query($sql);
         table{ width:100%; border-collapse:collapse; font-size: 14px;}
         th, td{ border:1px solid #ddd; padding:12px; text-align: center; }
         th{ background-color:#eef7ff; }
-        .Approved{ color:green; font-weight:bold; }
-        .Pending{ color:orange; font-weight:bold; }
-        .Rejected{ color:red; font-weight:bold; }
+        .Paid{ color:green; font-weight:bold; }
+        .Due{ color:orange; font-weight:bold; }
         footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; color:#444; }
     </style>
 </head>
@@ -137,71 +136,65 @@ $history_result = $conn->query($sql);
 
 <header>
     <h1>Smart Healthcare Management System</h1>
-    <h3>Submit Insurance</h3>
+    <h3>Invoice Generation</h3>
     <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
 <div class="form-container">
-    <h3>New Insurance Claim</h3>
-    <form action="SI.php" method="POST">
-        <label for="Invoice_ID">Invoice ID</label>
-        <input type="number" name="Invoice_ID" id="Invoice_ID" required>
+    <h3>Generate New Invoice</h3>
+    <form action="SI_Invoice.php" method="POST">
+        <label for="patient_Id">Patient ID</label>
+        <input type="number" name="patient_Id" id="patient_Id" placeholder="Enter patient ID" required>
 
-        <label for="Patient_ID">Patient ID</label>
-        <input type="number" name="Patient_ID" id="Patient_ID" required>
+        <label for="description">Service Description</label>
+        <input type="text" name="description" id="description" placeholder="e.g. Consultation" required>
 
-        <label for="Amount">Claim Amount ($)</label>
-        <input type="number" step="0.01" name="Amount" id="Amount" required>
+        <label for="amount">Total Amount ($)</label>
+        <input type="number" step="0.01" name="amount" id="amount" placeholder="0.00" required>
 
-        <label for="date">Claim Date</label>
+        <label for="date">Invoice Date</label>
         <input type="date" name="date" id="date" value="<?php echo date('Y-m-d'); ?>" required>
 
-        <label for="Status">Initial Status</label>
-        <select name="Status" id="Status">
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
+        <label for="status">Payment Status</label>
+        <select name="status" id="status" required>
+            <option value="Due">Due</option>
+            <option value="Paid">Paid</option>
         </select>
 
-        <label for="Description">Claim Description / Notes</label>
-        <textarea name="Description" id="Description"></textarea>
-
-        <button type="submit" name="submit_claim" class="submit-btn">Submit to Database</button>
+        <button type="submit" name="generate_bill" class="submit-btn">Generate Bill</button>
     </form>
 </div>
 
 <div class="table-container">
-    <h3>Insurance Claims History</h3>
+    <h3>Invoice History</h3>
     <table>
         <thead>
             <tr>
-                <th>Claim ID</th>
                 <th>Invoice ID</th>
                 <th>Patient ID</th>
-                <th>Officer ID</th>
+                <th>Accountant ID</th>
+                <th>Description</th>
                 <th>Amount</th>
                 <th>Date</th>
-                <th>Description</th> 
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            if ($history_result->num_rows > 0) {
+            if ($history_result && $history_result->num_rows > 0) {
                 while($row = $history_result->fetch_assoc()) {
                     echo "<tr>
-                            <td>" . $row["Claim_ID"] . "</td>
-                            <td>" . $row["Invoice_ID"] . "</td>
-                            <td>" . $row["Patient_ID"] . "</td>
-                            <td>" . $row["Officer_ID"] . "</td>
-                            <td>$" . number_format($row["Amount"], 2) . "</td>
+                            <td>" . $row["invoice_Id"] . "</td>
+                            <td>" . $row["patient_Id"] . "</td>
+                            <td>" . $row["accountantID"] . "</td>
+                            <td>" . htmlspecialchars($row["description"]) . "</td>
+                            <td>$" . number_format($row["amount"], 2) . "</td>
                             <td>" . $row["date"] . "</td>
-                            <td>" . htmlspecialchars($row["Description"] ?? 'N/A') . "</td>
-                            <td class='" . $row["Status"] . "'>" . $row["Status"] . "</td>
+                            <td class='" . $row["status"] . "'>" . $row["status"] . "</td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='8'>No records found</td></tr>";
+                echo "<tr><td colspan='7'>No invoices found</td></tr>";
             }
             ?>
         </tbody>

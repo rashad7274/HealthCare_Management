@@ -1,3 +1,28 @@
+<?php
+session_start();
+include "../db.php"; // Ensure this points to your database connection file
+
+// --- SESSION HANDLING ---
+// For testing purposes, we use '6001' (Bruce Wayne) from your SQL data
+$_SESSION['iOfficerID'] = '6001'; 
+
+if (!isset($_SESSION['iOfficerID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to manage claims.</h2>";
+    exit;
+}
+
+$officer_id = $_SESSION['iOfficerID'];
+
+// --- HANDLE SEARCH LOGIC ---
+// This allows filtering the table by a specific Claim ID
+$search_id = isset($_GET['search_id']) ? mysqli_real_escape_string($conn, $_GET['search_id']) : '';
+$where_clause = !empty($search_id) ? " WHERE Claim_ID = '$search_id'" : "";
+
+// Fetch claims from the insurance_claim table
+$sql = "SELECT * FROM insurance_claim $where_clause ORDER BY Claim_ID DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,16 +70,16 @@
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Insurance Department - Claims Management</h3>
-    <button class="logout">Logout</button>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
 <div class="main-container">
     
     <div class="search-section">
-        <form action="#" method="GET" style="display:flex; gap:10px;">
-            <input type="number" name="search_id" placeholder="Enter Claim ID...">
+        <form action="UI.php" method="GET" style="display:flex; gap:10px;">
+            <input type="number" name="search_id" placeholder="Search by Claim ID..." value="<?php echo htmlspecialchars($search_id); ?>">
             <button type="submit">Search</button>
-            <button type="button" style="background-color:#6c757d; color: white; border: none; border-radius: 5px; padding: 8px 20px; cursor: pointer;">Reset</button>
+            <button type="button" onclick="window.location.href='UI.php'" style="background-color:#6c757d; color:white; border:none; border-radius:5px; padding:8px 20px; cursor:pointer;">Reset</button>
         </form>
     </div>
 
@@ -63,6 +88,8 @@
         <div class="form-container">
             <h2>Update Claim</h2>
             <form action="update_logic.php" method="POST">
+                <input type="hidden" name="Officer_ID" value="<?php echo $officer_id; ?>">
+
                 <label>Claim ID (To Update)</label>
                 <input type="number" name="claim_id" placeholder="e.g. 601" required>
 
@@ -85,7 +112,7 @@
         </div>
 
         <div class="table-container">
-            <h2>Claims Records</h2>
+            <h2>Live Claims Records</h2>
             <table>
                 <thead>
                     <tr>
@@ -97,20 +124,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>601</td>
-                        <td>1002</td>
-                        <td>$10,000.00</td>
-                        <td>2026-04-11</td>
-                        <td><span class="status-badge Approved">Approved</span></td>
-                    </tr>
-                    <tr>
-                        <td>602</td>
-                        <td>1001</td>
-                        <td>$100.00</td>
-                        <td>2026-04-11</td>
-                        <td><span class="status-badge Rejected">Rejected</span></td>
-                    </tr>
+                    <?php
+                    // Dynamically generate table rows from database result
+                    if ($result && $result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>
+                                    <td>" . $row["Claim_ID"] . "</td>
+                                    <td>" . $row["Patient_ID"] . "</td>
+                                    <td>$" . number_format($row["Amount"], 2) . "</td>
+                                    <td>" . $row["date"] . "</td>
+                                    <td><span class='status-badge " . $row["Status"] . "'>" . $row["Status"] . "</span></td>
+                                  </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No records found.</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
