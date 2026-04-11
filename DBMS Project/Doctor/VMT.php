@@ -1,15 +1,27 @@
-<?php 
-include "../db.php";
+<?php
+session_start();
+$_SESSION['Doctor_ID'] = '2001';//for test
+include "../db.php"; // Ensure this points to your DB connection file
 
-$searchFilter = "";
-if (isset($_GET['search_test_id']) && $_GET['search_test_id'] != "") {
-    $search_id = $conn->real_escape_string($_GET['search_test_id']);
-    $searchFilter = " WHERE test_ID = '$search_id'";
+// 1. Check if the Doctor is logged in
+if (!isset($_SESSION['Doctor_ID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../SystemAccess.html'>log in</a> to view patient test records.</h2>";
+    exit;
 }
 
-$sql = "SELECT test_ID, Patient_ID, Doctor_ID, Test_Type, Result_Details, Report_File_Path, Result_Status 
-        FROM medicaltest" . $searchFilter;
+$doctor_id = $_SESSION['Doctor_ID'];
 
+// 2. Handle Search Filter
+$search_query = "";
+if (isset($_GET['search_test_id']) && !empty(trim($_GET['search_test_id']))) {
+    $search_id = $conn->real_escape_string($_GET['search_test_id']);
+    // Ensure 'test_id' matches your actual database column name
+    $search_query = " AND test_id = '$search_id'"; 
+}
+
+// 3. Fetch only the tests ordered by THIS doctor
+// IMPORTANT: Change 'medicalreport' to your actual table name (e.g., 'medicaltest')
+$sql = "SELECT * FROM medicaltest WHERE Doctor_ID = '$doctor_id' $search_query";
 $result = $conn->query($sql);
 ?>
 
@@ -21,9 +33,12 @@ $result = $conn->query($sql);
 
 <style>
     body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
-    header{ background-color:#d6ecff; padding:20px; }
+    
+    /* Added Logout Button Styling to match your previous pages */
+    header{ background-color:#d6ecff; padding:20px; position: relative; }
     header h1{ margin:0; }
     header h3{ margin:5px 0; color:#555; }
+    .logout { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); padding: 8px 16px; font-size: 14px; background-color: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
     .test-container{
         width:90%;
@@ -34,6 +49,7 @@ $result = $conn->query($sql);
         box-shadow:0px 2px 5px rgba(0,0,0,0.1);
     }
 
+    /* Search Bar Styling */
     .search-box {
         margin-bottom: 25px;
         background: #eef7ff;
@@ -44,8 +60,24 @@ $result = $conn->query($sql);
         gap: 10px;
         align-items: center;
     }
-    .search-box input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 250px; }
-    .search-box button { padding: 8px 20px; background-color: #4da6ff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+    .search-box input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 250px;
+    }
+
+    .search-box button {
+        padding: 8px 20px;
+        background-color: #4da6ff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
     .search-box button:hover { background-color: #3399ff; }
 
     table{ width:100%; border-collapse:collapse; margin-top:20px; font-size: 14px;}
@@ -57,6 +89,7 @@ $result = $conn->query($sql);
     .pending{ color:orange; font-weight:bold; }
     
     .file-link { color: #4da6ff; text-decoration: none; font-weight: bold; }
+
     footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; color:#444; }
 </style>
 </head>
@@ -66,6 +99,7 @@ $result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Medical Investigation Department</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
 </header>
 
 <div class="test-container">
@@ -74,9 +108,9 @@ $result = $conn->query($sql);
     <div class="search-box">
         <form action="" method="GET" style="display:flex; gap:10px;">
             <label for="search_id">Search by Test ID:</label>
-            <input type="text" name="search_test_id" id="search_id" placeholder="Enter Test ID (e.g. 301)">
+            <input type="text" name="search_test_id" id="search_id" placeholder="Enter Test ID" value="<?php echo isset($_GET['search_test_id']) ? htmlspecialchars($_GET['search_test_id']) : ''; ?>">
             <button type="submit">Filter Results</button>
-            <a href="VMT.php" style="padding: 8px 15px; background: #ccc; color: black; text-decoration: none; border-radius: 4px;">Clear</a>
+            <a href="?" style="padding: 8px 15px; background: #ccc; color: black; text-decoration: none; border-radius: 4px; font-weight: bold;">Clear</a>
         </form>
     </div>
 
@@ -94,36 +128,32 @@ $result = $conn->query($sql);
         </thead>
         <tbody>
             <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+            if ($result && $result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
                     
-                    if ($row['Result_Status'] == 'Done') {
-                        $statusClass = 'completed';
-                    } else {
-                        $statusClass = 'pending';
-                    }
+                    $status = $row['Result_Status'];
+                    $status_class = (strtolower($status) == 'completed') ? 'completed' : 'pending';
+                    
+                    // Display file link only if it exists
+                    $report_file = $row['Report_File_Path'];
+                    $file_link = !empty($report_file) ? "<a href='" . htmlspecialchars($report_file) . "' class='file-link' target='_blank'>View File</a>" : "---";
 
-                    if (!empty($row['Report_File_Path'])) {
-                        $fileLink = "<a href='" . $row['Report_File_Path'] . "' class='file-link' target='_blank'>View PDF</a>";
-                    } else {
-                        $fileLink = "---";
-                    }
-            ?>
-            <tr>
-                <td><?php echo $row['test_ID']; ?></td>
-                <td><?php echo $row['Patient_ID']; ?></td>
-                <td><?php echo $row['Doctor_ID']; ?></td>
-                <td><?php echo $row['Test_Type']; ?></td>
-                <td><?php echo $row['Result_Details']; ?></td>
-                <td><?php echo $fileLink; ?></td>
-                <td><span class="<?php echo $statusClass; ?>"><?php echo $row['Result_Status']; ?></span></td>
-            </tr>
-            <?php
+                    // Handle empty Result Details
+                    $result_details = !empty($row['Result_Details']) ? $row['Result_Details'] : "Awaiting Analysis";
+
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['test_ID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Patient_ID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Doctor_ID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Test_Type']) . "</td>";
+                    echo "<td>" . htmlspecialchars($result_details) . "</td>";
+                    echo "<td>" . $file_link . "</td>";
+                    echo "<td><span class='$status_class'>" . htmlspecialchars($status) . "</span></td>";
+                    echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>No medical tests found.</td></tr>";
+                echo "<tr><td colspan='7'>No test records found.</td></tr>";
             }
-            $conn->close();
             ?>
         </tbody>
     </table>

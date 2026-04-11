@@ -23,16 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $current_date = date('Y-m-d');
     $notes_val = !empty($additional_notes) ? "'$additional_notes'" : "NULL";
-
 // The updated query
-    $sql = "INSERT INTO medicaltest (Patient_ID, Doctor_ID, test, priority, additional_notes, date) 
-            VALUES ('$patient_id', '$doctor_id', '$test_name', '$priority', $notes_val, '$current_date')";
+    $sql = "INSERT INTO medicaltest (Patient_ID, Doctor_ID, Test_Type, Priority_Level, Result_Status) 
+            VALUES ('$patient_id', '$doctor_id', '$test_name', '$priority', 'Pending')";
 
     if ($conn->query($sql) === TRUE) {
         $message = "<div class='alert success'>Test order submitted successfully!</div>";
     } else {
         $message = "<div class='alert error'>Error: " . $conn->error . "</div>";
     }
+    
 }
 ?>
 
