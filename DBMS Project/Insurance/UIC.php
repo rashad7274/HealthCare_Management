@@ -70,13 +70,13 @@ $result = $conn->query($sql);
 <header>
     <h1>Smart Healthcare Management System</h1>
     <h3>Insurance Department - Claims Management</h3>
-    <button class="logout" onclick="window.location.href='../SystemAccess.html'">Logout</button>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="main-container">
     
     <div class="search-section">
-        <form action="UI.php" method="GET" style="display:flex; gap:10px;">
+        <form action="" method="GET" style="display:flex; gap:10px;">
             <input type="number" name="search_id" placeholder="Search by Claim ID..." value="<?php echo htmlspecialchars($search_id); ?>">
             <button type="submit">Search</button>
             <button type="button" onclick="window.location.href='UI.php'" style="background-color:#6c757d; color:white; border:none; border-radius:5px; padding:8px 20px; cursor:pointer;">Reset</button>
