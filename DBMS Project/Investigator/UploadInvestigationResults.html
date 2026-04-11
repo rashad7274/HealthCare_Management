@@ -2,133 +2,92 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Upload Test Report</title>
+<title>Update Test Report</title>
 
 <style>
+    body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
+    header{ background-color:#d6ecff; padding:20px; }
+    header h1{ margin:0; }
+    header h3{ margin:5px 0; color:#555; }
 
-body{
-    font-family: Arial, sans-serif;
-    background-color:#f2f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
+    .form-container{
+        width:40%;
+        margin:40px auto;
+        background:white;
+        padding:30px;
+        border-radius:10px;
+        box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+        text-align:left;
+    }
 
-/* Header */
+    label{ font-weight:bold; display: block; margin-top: 15px; }
+    
+    input, select, textarea{
+        width:100%;
+        padding:10px;
+        margin-top:5px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
 
-header{
-    background-color:#d6ecff;
-    padding:20px;
-}
+    /* Style for read-only ID field */
+    input[readonly] { background-color: #eee; cursor: not-allowed; }
 
-header h1{
-    margin:0;
-}
+    button{
+        background-color:#4CAF50;
+        color:white;
+        border:none;
+        padding:12px 20px;
+        border-radius:5px;
+        cursor:pointer;
+        width:100%;
+        font-size:16px;
+        margin-top: 20px;
+    }
 
-header h3{
-    margin:5px 0;
-    color:#555;
-}
-
-/* Form Box */
-
-.form-container{
-    width:40%;
-    margin:40px auto;
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0px 2px 5px rgba(0,0,0,0.1);
-    text-align:left;
-}
-
-/* Input fields */
-
-label{
-    font-weight:bold;
-}
-
-input, select, textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-/* Button */
-
-button{
-    background-color:#4CAF50;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:5px;
-    cursor:pointer;
-    width:100%;
-    font-size:16px;
-}
-
-button:hover{
-    background-color:#45a049;
-}
-
-/* Footer */
-
-footer{
-    background:#e8eef2;
-    padding:15px;
-    margin-top:40px;
-    font-size:14px;
-    color:#444;
-}
-
+    button:hover{ background-color:#45a049; }
+    footer{ background:#e8eef2; padding:15px; margin-top:40px; font-size:14px; color:#444; }
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Smart Healthcare Management System</h1>
-<h3>Upload Investigation Result</h3>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Upload Investigation Result</h3>
 </header>
 
 <div class="form-container">
+    <h2>Update Record</h2>
 
-<h2>Upload Test Report</h2>
+    <form action="update_logic.php" method="POST" enctype="multipart/form-data">
 
-<form>
+        <label>Medical Test ID</label>
+        <input type="text" name="test_ID" value="1005" readonly>
 
-<label>Patient ID</label>
-<input type="text" placeholder="Enter Patient ID">
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
 
-<label>Patient Name</label>
-<input type="text" placeholder="Enter Patient Name">
+        <label>Result Status</label>
+        <select name="Result_Status">
+            <option value="Pending">Pending</option>
+            <option value="Completed" selected>Completed</option>
+            <option value="In Review">In Review</option>
+        </select>
 
-<label>Test Type</label>
-<select>
-<option>Blood Test</option>
-<option>X-Ray</option>
-<option>CT Scan</option>
-<option>Urine Test</option>
-<option>MRI</option>
-</select>
+        <label>Upload Report File (Binary/Blob)</label>
+        <input type="file" name="Report_File_Path" required>
 
-<label>Upload Report File</label>
-<input type="file">
+        <label>Result Details</label>
+        <textarea name="Result_Details" rows="5" placeholder="Enter findings, measurements, or observations..."></textarea>
 
-<label>Remarks</label>
-<textarea rows="4" placeholder="Add notes or observations"></textarea>
+        <button type="submit">Update Investigation</button>
 
-<button type="submit">Upload Report</button>
-
-</form>
-
+    </form>
 </div>
 
 <footer>
-Smart Healthcare Management System © 2026
+    Smart Healthcare Management System © 2026
 </footer>
 
 </body>
