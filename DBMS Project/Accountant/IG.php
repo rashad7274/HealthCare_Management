@@ -3,7 +3,7 @@ session_start();
 
 // --- SESSION & DATABASE HEADER ---
 // For testing purposes, we use '3002' (Peter Parker) from your SQL data
-$_SESSION['Accountant_ID'] = '3002'; 
+//$_SESSION['Accountant_ID'] = '3002'; 
 
 // Include your database connection file
 include "../db.php"; 

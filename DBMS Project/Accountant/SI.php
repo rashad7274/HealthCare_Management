@@ -3,7 +3,7 @@ session_start();
 
 // --- SESSION & DATABASE HEADER ---
 // For testing purposes, we use '6001' (Bruce Wayne) from your SQL data
-$_SESSION['iOfficerID'] = '6001'; 
+//$_SESSION['iOfficerID'] = '6001'; 
 
 // Include your database connection file
 include "../db.php"; 

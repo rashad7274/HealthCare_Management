@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['Doctor_ID'] = '2001';//for test
+//$_SESSION['Doctor_ID'] = '2001';//for test
 include "../db.php"; // Ensure this points to your DB connection file
 
 // 1. Check if the Doctor is logged in

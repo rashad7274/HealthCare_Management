@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 session_start();
 
 // Simulating Investigator Login
-$_SESSION['InvestigatorID'] = '5001'; 
+//$_SESSION['InvestigatorID'] = '5001'; 
 
 // 2. Database Connection - Double check this path!
 include "../db.php"; 

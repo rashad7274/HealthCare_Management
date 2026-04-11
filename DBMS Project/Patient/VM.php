@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$_SESSION['Patient_ID'] = '1001';//for test
+//$_SESSION['Patient_ID'] = '1001';//for test
 include "../db.php"; 
 
 if (!isset($_SESSION['Patient_ID'])) {

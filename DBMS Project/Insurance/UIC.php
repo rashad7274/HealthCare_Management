@@ -4,7 +4,7 @@ include "../db.php"; // Ensure this points to your database connection file
 
 // --- SESSION HANDLING ---
 // For testing purposes, we use '6001' (Bruce Wayne) from your SQL data
-$_SESSION['iOfficerID'] = '6001'; 
+//$_SESSION['iOfficerID'] = '6001'; 
 
 if (!isset($_SESSION['iOfficerID'])) {
     echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to manage claims.</h2>";
