@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Request Care Recommendation</title>
+<style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f2f6f8; margin: 0; padding: 0; text-align: center; }
+    
+    /* Header Styling */
+    header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 30px 20px; position: relative; }
+    header h1 { margin: 0; font-size: 26px; }
+    header h3 { margin: 5px 0 0 0; font-weight: normal; color: #d6ecff; }
+    header p { margin-top: 5px; font-size: 14px; color: #b3d4ff; }
+
+    .logout {
+        position: absolute; 
+        right: 20px;     
+        top: 20px;       
+        padding: 8px 20px;  
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none; 
+        font-size: 14px;
+    }
+    .logout:hover { background-color: #cc0000; }
+
+    /* Form Container */
+    .form-container {
+        width: 500px;
+        margin: -20px auto 40px;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0,0,0,0.1);
+        text-align: left;
+    }
+
+    .form-container h3 { margin-top: 0; color: #333; text-align: center; border-bottom: 2px solid #f2f6f8; padding-bottom: 10px; }
+
+    label { font-weight: bold; display: block; margin-top: 15px; color: #444; font-size: 14px; }
+    
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus { border-color: #2a5298; outline: none; }
+    
+    textarea { height: 80px; resize: vertical; }
+
+    button.submit-btn {
+        width: 100%; padding: 12px; border: none; background-color: #007bff; color: white; 
+        border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-top: 20px;
+    }
+    button.submit-btn:hover { background-color: #0056b3; }
+
+    /* Table Container */
+    .table-container { width: 95%; margin: 20px auto 40px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #eef7ff; color: #333; text-align: center; }
+    td.center { text-align: center; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    tr:hover { background-color: #f1f1f1; }
+
+    /* Status Tags */
+    .status { padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; color: white; display: inline-block; text-align: center; min-width: 80px;}
+    .status-pending { background-color: #ffc107; color: #333; } /* Yellow */
+    .status-responded { background-color: #28a745; } /* Green */
+
+    footer { background: #e8eef2; padding: 15px; font-size: 14px; color: #444; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Request Preventive Care & Recommendations</h3>
+    <p>Logged in as Patient ID: <strong>1001</strong></p>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
+</header>
+
+<div class="form-container">
+    <h3>Submit a New Request</h3>
+    
+    <form action="#" method="POST">
+        <label for="Category">Care Category</label>
+        <select name="Category" id="Category" required>
+            <option value="">-- Select Category --</option>
+            <option value="Diet/Lifestyle">Diet & Lifestyle</option>
+            <option value="Vaccination">Vaccination Inquiry</option>
+            <option value="Routine Screening">Routine Screening</option>
+            <option value="General Health">General Health Concern</option>
+        </select>
+
+        <label for="Condition">Current Condition / Symptoms</label>
+        <input type="text" name="Condition" id="Condition" placeholder="e.g., Frequent headaches, Joint pain" required>
+
+        <label for="Notes">Additional Notes</label>
+        <textarea name="Notes" id="Notes" placeholder="Provide any extra details the doctor should know..."></textarea>
+
+        <label for="Date">Date of Request</label>
+        <input type="date" name="Date" id="Date" required>
+
+        <button type="button" class="submit-btn" onclick="alert('Request submitted! A doctor will review this soon.')">Submit Request</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <h3 style="text-align: center; color: #333; margin-top: 0;">My Request History & Feedback</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Req ID</th>
+                <th>Date Requested</th>
+                <th>Category</th>
+                <th>Condition</th>
+                <th>My Notes</th>
+                <th>Feedback Status</th>
+                <th>Doctor's Recommendation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="center">101</td>
+                <td class="center">2026-04-10</td>
+                <td class="center">Diet/Lifestyle</td>
+                <td>High blood pressure</td>
+                <td>Looking for a low-sodium meal plan.</td>
+                <td class="center"><span class="status status-responded">Responded</span></td>
+                <td>Please reduce daily sodium intake to under 1,500mg. I have attached a DASH diet pamphlet to your portal. Schedule a follow-up in 4 weeks. (Dr. Smith)</td>
+            </tr>
+            <tr>
+                <td class="center">102</td>
+                <td class="center">2026-04-14</td>
+                <td class="center">Routine Screening</td>
+                <td>None</td>
+                <td>I am turning 50 next month and want to know what routine screenings I need.</td>
+                <td class="center"><span class="status status-pending">Pending Review</span></td>
+                <td style="color: #888; font-style: italic;">Awaiting doctor's feedback...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>
