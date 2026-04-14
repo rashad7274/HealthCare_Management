@@ -3,8 +3,8 @@ session_start();
 include "../db.php"; // Ensure this points to your database connection file
 
 // --- SESSION HANDLING ---
-// For testing purposes, we use '6001' (Bruce Wayne) from your SQL data
-//$_SESSION['iOfficerID'] = '6001'; 
+// For testing purposes, we use '6001' from your SQL data
+// $_SESSION['iOfficerID'] = '6001'; 
 
 if (!isset($_SESSION['iOfficerID'])) {
     echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to manage claims.</h2>";
@@ -12,13 +12,41 @@ if (!isset($_SESSION['iOfficerID'])) {
 }
 
 $officer_id = $_SESSION['iOfficerID'];
+$message = ""; // Variable to hold our success/error messages
 
-// --- HANDLE SEARCH LOGIC ---
-// This allows filtering the table by a specific Claim ID
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_update_claim'])) {
+    
+    $claim_id = mysqli_real_escape_string($conn, $_POST['claim_id']);
+    $new_status = mysqli_real_escape_string($conn, $_POST['new_status']);
+    $settlement_amount = mysqli_real_escape_string($conn, $_POST['settlement_amount']);
+    $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
+    $form_officer_id = mysqli_real_escape_string($conn, $_POST['Officer_ID']);
+
+    // Build the query
+    $update_sql = "UPDATE insurance_claim 
+                   SET Status = '$new_status', 
+                       Description = '$remarks',
+                       Officer_ID = '$form_officer_id'";
+
+    // Only update amount if they typed something
+    if (!empty($settlement_amount)) {
+        $update_sql .= ", Amount = '$settlement_amount'";
+    }
+
+    $update_sql .= " WHERE Claim_ID = '$claim_id'";
+
+    // Execute and set message
+    if ($conn->query($update_sql) === TRUE) {
+        $message = "<div style='color: green; background: #eaffea; padding: 10px; border: 1px solid green; border-radius: 5px; margin-bottom: 15px;'>Claim #$claim_id updated successfully!</div>";
+    } else {
+        $message = "<div style='color: red; background: #ffeaea; padding: 10px; border: 1px solid red; border-radius: 5px; margin-bottom: 15px;'>Error updating claim: " . $conn->error . "</div>";
+    }
+}
+
 $search_id = isset($_GET['search_id']) ? mysqli_real_escape_string($conn, $_GET['search_id']) : '';
 $where_clause = !empty($search_id) ? " WHERE Claim_ID = '$search_id'" : "";
 
-// Fetch claims from the insurance_claim table
 $sql = "SELECT * FROM insurance_claim $where_clause ORDER BY Claim_ID DESC";
 $result = $conn->query($sql);
 ?>
@@ -101,7 +129,10 @@ $result = $conn->query($sql);
         
         <div class="form-container">
             <h2>Update Claim</h2>
-            <form action="update_logic.php" method="POST">
+            
+            <?php echo $message; ?>
+
+            <form action="" method="POST">
                 <input type="hidden" name="Officer_ID" value="<?php echo $officer_id; ?>">
 
                 <label>Claim ID (To Update)</label>
@@ -135,6 +166,7 @@ $result = $conn->query($sql);
                         <th>Amount</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -148,10 +180,11 @@ $result = $conn->query($sql);
                                     <td>$" . number_format($row["Amount"], 2) . "</td>
                                     <td>" . $row["date"] . "</td>
                                     <td><span class='status-badge " . $row["Status"] . "'>" . $row["Status"] . "</span></td>
+                                    <td style='text-align: left;'>" . htmlspecialchars($row["Description"] ?? '') . "</td>
                                   </tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='5'>No records found.</td></tr>";
+                        echo "<tr><td colspan='6'>No records found.</td></tr>";
                     }
                     ?>
                 </tbody>
