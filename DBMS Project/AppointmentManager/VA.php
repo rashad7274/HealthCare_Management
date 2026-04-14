@@ -60,22 +60,22 @@ $result = $conn->query($sql);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .logout {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            line-height: 1.2;
-        }
+.logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
 
         .filter-container {
             width: 95%;

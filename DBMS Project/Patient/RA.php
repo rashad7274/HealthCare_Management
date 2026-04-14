@@ -61,22 +61,21 @@ header {
 header h1 { margin: 0; }
 header h3 { margin: 5px 0; color: #555; }
 .logout {
-            position: absolute; 
-            right: 20px;     
-            top: 50%;       
-            transform: translateY(-50%);
-            width: auto;      
-            padding: 8px 20px;  
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none; 
-            font-size: 14px;
-            white-space: nowrap;
-        }
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .logout:hover { background-color: #cc0000; }
 
 .form-container {

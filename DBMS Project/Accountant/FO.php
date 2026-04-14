@@ -38,11 +38,22 @@ $conn->close();
         header h1 { margin: 0; font-size: 24px; }
         header h3 { margin: 5px 0; color: #555; font-size: 16px; }
 
-        .logout { 
-            position: absolute; right: 20px; top: 25px; padding: 8px 15px; 
-            border: none; background-color: #ff6b6b; color: white; 
-            border-radius: 5px; cursor: pointer; font-weight: bold; 
-        }
+        .logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .logout:hover { background-color: #fa5252; }
 
         .cards { display: flex; justify-content: center; gap: 20px; margin-top: 50px; flex-wrap: wrap; }

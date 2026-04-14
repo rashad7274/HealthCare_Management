@@ -35,23 +35,22 @@ $result = $conn->query($sql);
     <style>
         body{ font-family: Arial, sans-serif; background-color:#f2f6f8; margin:0; padding:0; text-align:center; }
         header{ background-color:#d6ecff; padding:20px; }
-        .logout {
-            position: absolute; 
-            right: 20px;     
-            top: 50%;       
-            transform: translateY(-50%);
-            width: auto;      
-            padding: 8px 20px;  
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none; 
-            font-size: 14px;
-            white-space: nowrap;
-        }
+       .logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .logout:hover { background-color: #cc0000; }
         .container{ width:90%; margin:40px auto; background:white; padding:25px; border-radius:10px; box-shadow:0px 2px 5px rgba(0,0,0,0.1); }
         

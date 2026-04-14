@@ -67,22 +67,21 @@ $history_result = $conn->query($sql);
         header h3 { margin: 5px 0 0 0; color: #555; }
 
         .logout {
-            position: absolute; 
-            right: 20px;     
-            top: 50%;       
-            transform: translateY(-50%);
-            width: auto;      
-            padding: 8px 20px;  
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none; 
-            font-size: 14px;
-            white-space: nowrap;
-        }
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .logout:hover { background-color: #ee5a5a; }
 
         .form-container{

@@ -11,11 +11,11 @@ session_start();
 // 2. Database Connection - Double check this path!
 include "../db.php"; 
 
-if (!isset($_SESSION['InvestigatorID'])) {
+if (!isset($_SESSION['Investigator_ID'])) {
     die("<h2 style='text-align:center; margin-top:50px;'>Please log in first.</h2>");
 }
 
-$investigator_id = $_SESSION['InvestigatorID'];
+$investigator_id = $_SESSION['Investigator_ID'];
 $message = "";
 
 // 3. Handle Update Logic
@@ -66,23 +66,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_test'])) {
     <style>
         body{ font-family: 'Segoe UI', Arial; background:#f2f6f8; margin:0; text-align:center; }
         header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 40px; }
-        .logout {
-            position: absolute; 
-            right: 20px;     
-            top: 50%;       
-            transform: translateY(-50%);
-            width: auto;      
-            padding: 8px 20px;  
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none; 
-            font-size: 14px;
-            white-space: nowrap;
-        }
+       .logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px; /* Changed from 50% to 20px to pin it to the top */
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .logout:hover { background-color: #cc0000; }
         .form-container { width: 400px; margin: -30px auto 40px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: left; }
         label { font-weight: bold; display: block; margin-top: 15px; color: #444; }

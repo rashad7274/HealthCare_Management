@@ -34,8 +34,22 @@ $result = $conn->query($sql);
         header h1{ margin:0; font-size: 24px; }
         header h3{ margin:5px 0; color:#555; }
 
-        .logout { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: auto; padding: 8px 15px; border: none; background-color: #ff6b6b; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; }
-
+      .logout {
+    position: absolute; 
+    right: 20px;     
+    top: 20px; 
+    width: auto;      
+    padding: 8px 20px;  
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; 
+    font-size: 14px;
+    white-space: nowrap;
+}
         .main-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
 
         .search-section { width: 85%; background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: center; gap: 10px; }
