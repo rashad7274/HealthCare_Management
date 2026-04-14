@@ -65,6 +65,13 @@ header h3{
     justify-content:center;
     gap:20px;
     margin-top:30px;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line if needed */
+}
+
+/* Removes blue underline from links */
+.cards a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .card{
@@ -75,6 +82,8 @@ header h3{
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
     cursor:pointer;
     transition:0.3s;
+    height: 100%; /* Keeps cards even */
+    box-sizing: border-box;
 }
 
 .card:hover{
@@ -91,6 +100,11 @@ header h3{
     padding:20px;
     border-radius:10px;
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
+    text-align: left; /* Better readability for paragraphs */
+}
+
+.health-tip h3 {
+    margin-top: 0;
 }
 
 /* Footer */
@@ -125,26 +139,35 @@ footer{
 <div class="card">
 <h3>Request Appointment</h3>
 <p>Book a visit with a doctor.</p>
-</div></a>
+</div>
+</a>
 
-<a href="VM.php"
+<a href="VM.php">
 <div class="card">
 <h3>View Medical Records</h3>
 <p>Check your diagnosis and prescriptions.</p>
-</div></a>
+</div>
+</a>
 
-
-<a href="LG.php"
+<a href="LG.php">
 <div class="card">
 <h3>Log Symptoms</h3>
 <p>Record your current symptoms.</p>
-</div></a>
+</div>
+</a>
+
+<a href="prr.php">
+<div class="card">
+<h3>Request Recommendation</h3>
+<p>Ask for preventive care, diet plans, or health advice.</p>
+</div>
+</a>
 
 </section>
 
 <section class="health-tip">
 <h3>Daily Health Tip</h3>
-<p>Drink enough water and get at least 7–8 hours of sleep.</p>
+<p>Drink enough water and get at least 7–8 hours of sleep to maintain optimal health and support your immune system.</p>
 </section>
 
 <footer>
