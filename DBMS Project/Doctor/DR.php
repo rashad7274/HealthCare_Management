@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 session_start();
 
 // Simulated Login - In production, this comes from your login page
-$_SESSION['Doctor_ID'] = 2001; 
+//$_SESSION['Doctor_ID'] = 2001; 
 
 include "../db.php"; 
 
@@ -94,7 +94,7 @@ $result = $conn->query($query);
     <h1>Smart Healthcare Management System</h1>
     <h3>Patient Requests & Clinical Recommendations</h3>
     <p>Logged in as Doctor ID: <strong><?php echo $doctor_id; ?></strong></p>
-    <a href="../logout.php" class="logout">Logout</a>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="dashboard-container">

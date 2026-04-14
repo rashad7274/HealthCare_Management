@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-$_SESSION['Patient_ID'] = '1001'; // <--- ADD THIS LINE HERE
+//$_SESSION['Patient_ID'] = '1001'; // <--- ADD THIS LINE HERE
 
 include "../db.php"; 
 
@@ -87,7 +87,7 @@ $history_result = $stmt_history->get_result();
     <h1>Smart Healthcare Management System</h1>
     <h3>Request Preventive Care & Recommendations</h3>
     <p>Logged in as Patient ID: <strong><?php echo $patient_id; ?></strong></p>
-    <a href="../logout.php" class="logout">Logout</a>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
 </header>
 
 <div class="form-container">
