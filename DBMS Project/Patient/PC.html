@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recommendations & Preventive Care</title>
+<style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f2f6f8; margin: 0; padding: 0; text-align: center; }
+    
+    /* Header Styling */
+    header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 30px 20px; position: relative; }
+    header h1 { margin: 0; font-size: 26px; }
+    header h3 { margin: 5px 0 0 0; font-weight: normal; color: #d6ecff; }
+
+    .logout {
+        position: absolute; 
+        right: 20px;     
+        top: 20px;       
+        padding: 8px 20px;  
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none; 
+        font-size: 14px;
+    }
+    .logout:hover { background-color: #cc0000; }
+
+    /* Form Container */
+    .form-container {
+        width: 450px;
+        margin: -20px auto 40px;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0,0,0,0.1);
+        text-align: left;
+    }
+
+    .form-container h3 { margin-top: 0; color: #333; text-align: center; border-bottom: 2px solid #f2f6f8; padding-bottom: 10px; }
+
+    label { font-weight: bold; display: block; margin-top: 15px; color: #444; font-size: 14px; }
+    
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus { border-color: #2a5298; outline: none; }
+    
+    textarea { height: 100px; resize: vertical; }
+
+    button.submit-btn {
+        width: 100%; padding: 12px; border: none; background-color: #28a745; color: white; 
+        border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-top: 20px;
+    }
+    button.submit-btn:hover { background-color: #218838; }
+
+    /* Table Container */
+    .table-container { width: 90%; margin: 20px auto 40px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+    th { background-color: #eef7ff; color: #333; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    tr:hover { background-color: #f1f1f1; }
+
+    /* Tags for Categories */
+    .tag { padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; color: white; }
+    .bg-vaccine { background-color: #17a2b8; }
+    .bg-diet { background-color: #fd7e14; }
+    .bg-screening { background-color: #6f42c1; }
+    .bg-general { background-color: #6c757d; }
+
+    footer { background: #e8eef2; padding: 15px; font-size: 14px; color: #444; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Healthcare Management System</h1>
+    <h3>Recommendations & Preventive Care</h3>
+    <button class="logout" onclick="window.location.href='../SystemAccess.php'">Logout</button>
+</header>
+
+<div class="form-container">
+    <h3>Issue New Recommendation</h3>
+    
+    <form action="#" method="POST">
+        <label for="Patient_ID">Patient ID</label>
+        <input type="number" name="Patient_ID" id="Patient_ID" placeholder="Enter Patient ID" required>
+
+        <label for="Category">Care Category</label>
+        <select name="Category" id="Category" required>
+            <option value="Vaccination">Vaccination / Immunization</option>
+            <option value="Diet/Lifestyle">Diet & Lifestyle Plan</option>
+            <option value="Routine Screening">Routine Screening</option>
+            <option value="General Advice">General Medical Advice</option>
+        </select>
+
+        <label for="Date">Date Issued</label>
+        <input type="date" name="Date" id="Date" required>
+
+        <label for="Description">Detailed Recommendation / Instructions</label>
+        <textarea name="Description" id="Description" placeholder="Write specific preventive care instructions here..." required></textarea>
+
+        <button type="button" class="submit-btn" onclick="alert('This is just the HTML template. Form submission requires the PHP version!')">Save to Patient Record</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <h3>Preventive Care History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Care ID</th>
+                <th>Patient ID</th>
+                <th>Doctor ID</th>
+                <th>Category</th>
+                <th>Date Issued</th>
+                <th>Recommendation Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1001</td>
+                <td>2001</td>
+                <td><span class="tag bg-vaccine">Vaccination</span></td>
+                <td>2026-04-14</td>
+                <td style="text-align:left;">Annual flu shot administered. Patient advised to rest and drink plenty of fluids.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1005</td>
+                <td>2001</td>
+                <td><span class="tag bg-diet">Diet/Lifestyle</span></td>
+                <td>2026-04-12</td>
+                <td style="text-align:left;">Low sodium diet recommended. 30 minutes of moderate exercise daily.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    Smart Healthcare Management System © 2026
+</footer>
+
+</body>
+</html>

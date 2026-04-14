@@ -9,12 +9,12 @@ session_start();
 include "../db.php"; 
 
 // 1. Check if the Insurance Officer is logged in
-if (!isset($_SESSION['iOfficerID'])) {
+if (!isset($_SESSION['Accountant_ID'])) {
     echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../login.php'>log in</a> to manage insurance claims.</h2>";
     exit;
 }
 
-$officer_id = $_SESSION['iOfficerID'];
+$officer_id = $_SESSION['Accountant_ID'];
 
 // --- HANDLE FORM SUBMISSION ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_claim'])) {
