@@ -68,6 +68,12 @@ header h3{
     flex-wrap:wrap;
 }
 
+/* Added text-decoration: none to a tags so the text doesn't look like a blue link */
+.cards a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .card{
     background:white;
     width:220px;
@@ -76,6 +82,8 @@ header h3{
     box-shadow:0px 2px 5px rgba(0,0,0,0.1);
     transition:0.3s;
     cursor:pointer;
+    height: 100%; /* Keeps cards even if text length varies */
+    box-sizing: border-box;
 }
 
 .card:hover{
@@ -134,30 +142,40 @@ footer{
 </div>
 </a>
 
-<a href="PH.php"
+<a href="PH.php">
 <div class="card">
 <h3>Patient History</h3>
 <p>Access patient medical records and previous visits.</p>
-</div></a>
+</div>
+</a>
 
-<a href="OMT.php"
+<a href="OMT.php">
 <div class="card">
 <h3>Order Medical Tests</h3>
 <p>Request laboratory tests for patients.</p>
-</div></a>
+</div>
+</a>
 
-<a href="VMT.php"
+<a href="VMT.php">
 <div class="card">
 <h3>View Medical Tests</h3>
-<p>Request laboratory tests for patients.</p>
-</div></a>
+<p>Review laboratory test results.</p>
+</div>
+</a>
 
-
-<a href="WP.php"
+<a href="WP.php">
 <div class="card">
 <h3>Write Prescription</h3>
 <p>Add diagnosis and prescribe medications.</p>
-</div></a>
+</div>
+</a>
+
+<a href="DR.php">
+<div class="card">
+<h3>Patient Requests</h3>
+<p>Review care requests and provide clinical recommendations.</p>
+</div>
+</a>
 
 </section>
 
@@ -166,7 +184,7 @@ footer{
 <ul>
 <li>3 new appointment requests.</li>
 <li>2 lab results uploaded.</li>
-</ul>
+<li>1 new patient care request pending review.</li> </ul>
 </section>
 
 <footer>
