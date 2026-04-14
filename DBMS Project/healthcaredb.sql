@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2026 at 07:06 PM
+-- Generation Time: Apr 14, 2026 at 01:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,7 +68,8 @@ INSERT INTO `appointment` (`appointment_id`, `Doctor_ID`, `Patient_ID`, `status`
 (102, 2001, 1001, 'Pending', '', '2026-04-23', '20:26:32', 4002),
 (104, 2001, 1001, 'Completed', 'djs', '2026-04-17', '19:45:00', NULL),
 (105, 2002, 1001, 'Pending', 'fever', '2026-04-18', '19:24:00', 4001),
-(106, 2002, 1002, 'Approved', 'Argent', '2026-04-21', '00:27:00', NULL);
+(106, 2002, 1002, 'Approved', 'Argent', '2026-04-21', '00:27:00', NULL),
+(107, 2002, 1001, 'Confirmed', 'Chest pain', '2026-04-17', '18:55:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -90,6 +91,33 @@ CREATE TABLE `appointment_manager` (
 INSERT INTO `appointment_manager` (`Appointment_Manager_ID`, `Appointment_Manager_Name`, `Phone_Number`, `Email_Address`) VALUES
 (4001, 'Bruce Banner', 1345453338, 'bb4001@private.com'),
 (4002, 'Natasha Romanoff', 148462870, 'nr4002@private.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `care_requests`
+--
+
+CREATE TABLE `care_requests` (
+  `Req_ID` int(11) NOT NULL,
+  `Patient_ID` int(11) NOT NULL,
+  `Doctor_ID` int(11) DEFAULT NULL,
+  `Category` varchar(100) NOT NULL,
+  `Patient_Condition` varchar(255) NOT NULL,
+  `Patient_Notes` text DEFAULT NULL,
+  `Request_Date` date NOT NULL,
+  `Status` varchar(50) DEFAULT 'Pending Review',
+  `Doctor_Recommendation` text DEFAULT NULL,
+  `Response_Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `care_requests`
+--
+
+INSERT INTO `care_requests` (`Req_ID`, `Patient_ID`, `Doctor_ID`, `Category`, `Patient_Condition`, `Patient_Notes`, `Request_Date`, `Status`, `Doctor_Recommendation`, `Response_Date`) VALUES
+(1, 1001, 2001, 'Diet/Lifestyle', 'Up BMI', 'Null', '2026-04-14', 'Responded', 'Eat healthy food avoid junk food', '2026-04-14 10:41:39'),
+(2, 1001, 2001, 'General Health', 'Raising weight', 'Null', '2026-04-18', 'Pending Review', 'Null\r\n', '2026-04-14 10:58:48');
 
 -- --------------------------------------------------------
 
@@ -233,7 +261,8 @@ CREATE TABLE `medicaltest` (
 INSERT INTO `medicaltest` (`test_ID`, `Doctor_ID`, `Patient_ID`, `Test_Type`, `InvestigatorID`, `Priority_Level`, `Result_Status`, `Report_File_Path`, `Result_Details`) VALUES
 (301, 2001, 1001, 'X-Ray', 5001, 'Urgent', 'Completed', NULL, 'n/a'),
 (302, 2002, 1002, 'Eye power test', 5001, 'Normal', 'Pending', NULL, 'null'),
-(303, 2002, 1002, 'Blood Test', 5001, 'Urgent', 'In Progress', NULL, 'N?A');
+(303, 2002, 1002, 'Blood Test', 5001, 'Urgent', 'In Progress', NULL, 'N?A'),
+(304, 2001, 1001, 'X-Ray', NULL, 'Urgent', 'Pending', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -261,7 +290,8 @@ INSERT INTO `medical_record` (`record_id`, `report_ID`, `patient_id`, `doctor_id
 (402, NULL, 1001, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
 (403, 301, 1001, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
 (405, 302, 1002, 2001, 'n/a', 'n/a', '2026-04-11', 'n/a'),
-(406, 303, 1002, 2002, 'Blood Test', 'Vitamin Suppliment', '2026-04-11', 'N/A');
+(406, 303, 1002, 2002, 'Blood Test', 'Vitamin Suppliment', '2026-04-11', 'N/A'),
+(407, 304, 1001, 2001, 'NULL', 'NULL', '2026-04-14', 'NULL');
 
 -- --------------------------------------------------------
 
@@ -309,7 +339,8 @@ INSERT INTO `symptomlog` (`log_ID`, `Patient_ID`, `symptom`, `additional_notes`,
 (201, 1001, 'pain', 'fever', 'Normal', '2026-04-10'),
 (202, 1002, 'Loosing mind', 'hallucinate sometimes', 'Urgent', '2026-04-15'),
 (203, 1001, 'Headache', 'm', 'Moderate', '2026-04-11'),
-(204, 1001, 'Headache', 'm', 'Moderate', '2026-04-11');
+(204, 1001, 'Headache', 'm', 'Moderate', '2026-04-11'),
+(205, 1001, 'Fever', 'Null', 'Severe', '2026-04-14');
 
 --
 -- Indexes for dumped tables
@@ -335,6 +366,14 @@ ALTER TABLE `appointment`
 --
 ALTER TABLE `appointment_manager`
   ADD PRIMARY KEY (`Appointment_Manager_ID`);
+
+--
+-- Indexes for table `care_requests`
+--
+ALTER TABLE `care_requests`
+  ADD PRIMARY KEY (`Req_ID`),
+  ADD KEY `care_Pateint_ID` (`Patient_ID`),
+  ADD KEY `care_Doctor_ID` (`Doctor_ID`);
 
 --
 -- Indexes for table `doctor`
@@ -416,13 +455,19 @@ ALTER TABLE `accountant`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `appointment_manager`
 --
 ALTER TABLE `appointment_manager`
   MODIFY `Appointment_Manager_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4004;
+
+--
+-- AUTO_INCREMENT for table `care_requests`
+--
+ALTER TABLE `care_requests`
+  MODIFY `Req_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -440,7 +485,7 @@ ALTER TABLE `insuranceofficer`
 -- AUTO_INCREMENT for table `insurance_claim`
 --
 ALTER TABLE `insurance_claim`
-  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
+  MODIFY `Claim_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=608;
 
 --
 -- AUTO_INCREMENT for table `investigator`
@@ -458,13 +503,13 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `medicaltest`
 --
 ALTER TABLE `medicaltest`
-  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
+  MODIFY `test_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
 
 --
 -- AUTO_INCREMENT for table `medical_record`
 --
 ALTER TABLE `medical_record`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=407;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=408;
 
 --
 -- AUTO_INCREMENT for table `patient`
@@ -476,7 +521,7 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT for table `symptomlog`
 --
 ALTER TABLE `symptomlog`
-  MODIFY `log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
+  MODIFY `log_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- Constraints for dumped tables
@@ -489,6 +534,13 @@ ALTER TABLE `appointment`
   ADD CONSTRAINT `Appointment_Doctor_ID` FOREIGN KEY (`Doctor_ID`) REFERENCES `doctor` (`Doctor_ID`),
   ADD CONSTRAINT `Appointment_Manager_ID` FOREIGN KEY (`Manager_ID`) REFERENCES `appointment_manager` (`Appointment_Manager_ID`),
   ADD CONSTRAINT `Appointment_Patient_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `patient` (`Patient_ID`);
+
+--
+-- Constraints for table `care_requests`
+--
+ALTER TABLE `care_requests`
+  ADD CONSTRAINT `care_Doctor_ID` FOREIGN KEY (`Doctor_ID`) REFERENCES `doctor` (`Doctor_ID`),
+  ADD CONSTRAINT `care_Pateint_ID` FOREIGN KEY (`Patient_ID`) REFERENCES `patient` (`Patient_ID`);
 
 --
 -- Constraints for table `insurance_claim`
