@@ -1,15 +1,15 @@
 <?php
 session_start();
-//$_SESSION['Manager_ID'] = '4001';//for test
 
 include "../db.php"; // Make sure this path correctly points to your database connection file
 
-if (!isset($_SESSION['Manager_ID'])) {
-    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../SystemAccess.html'>log in</a> as a Manager to access this page.</h2>";
+// Use the exact session variable name from your login output
+if (!isset($_SESSION['Appointment_Manager_ID'])) {
+    echo "<h2 style='text-align:center; margin-top:50px; font-family: Arial;'>Please <a href='../SystemAccess.php'>log in</a> as a Manager to access this page.</h2>";
     exit;
 }
 
-$manager_id = $_SESSION['Manager_ID'];
+$manager_id = $_SESSION['Appointment_Manager_ID'];
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time_val = !empty($time) ? "'$time'" : "NULL";
     $reason_val = !empty($reason) ? "'$reason'" : "NULL";
 
- 
     $sql = "INSERT INTO appointment (Doctor_ID, Patient_ID, status, reason, date, time, Manager_ID) 
             VALUES ('$doctor_id', '$patient_id', '$status', $reason_val, '$date', $time_val, '$manager_id')";
 
@@ -56,22 +55,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header h1 { margin: 0; }
         header h3 { margin: 5px 0; color: #555; }
 
-.logout {
-    position: absolute; 
-    right: 20px;     
-    top: 20px; 
-    width: auto;      
-    padding: 8px 20px;  
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none; 
-    font-size: 14px;
-    white-space: nowrap;
-}
+        .logout {
+            position: absolute; 
+            right: 20px;     
+            top: 20px; 
+            width: auto;      
+            padding: 8px 20px;  
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; 
+            font-size: 14px;
+            white-space: nowrap;
+        }
 
         .form-box {
             width: 400px;
